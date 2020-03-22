@@ -1,0 +1,26 @@
+{
+  "name": "forex-data-analyser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CezaryDanielNowak/forex-data-analyser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CezaryDanielNowak/forex-data-analyser/issues"
+  },
+  "homepage": "https://github.com/CezaryDanielNowak/forex-data-analyser#readme",
+  "dependencies": {
+    "csv-parser": "^2.3.2",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "lodash": "^4.17.15",
+    "response-time": "^2.3.2"
+  }
+}
