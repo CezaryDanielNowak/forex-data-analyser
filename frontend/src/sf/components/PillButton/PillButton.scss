@@ -1,0 +1,71 @@
+.ts-PillButton {
+  $module: &;
+
+  $pillColorsMap: (
+    action: palette(action-element),
+    error: palette(error),
+    default: palette(text)
+  );
+
+  border-radius: 12px;
+  border: 0;
+  color: palette(text, light);
+  display: inline-block;
+  font-family: font(sans);
+  font-size: 12px;
+  font-weight: 100;
+  line-height: 24px;
+  padding: 0 10px;
+  position: relative;
+
+  @each $pill, $color in $pillColorsMap {
+    &--#{$pill} {
+      background: $color;
+      box-shadow: 0 1px 0 darken($color, 3);
+
+      &:focus {
+        outline: 0;
+      }
+
+      &#{$module}--hover {
+        transition: all .2s ease-in-out;
+
+        &:hover,
+        &:focus {
+          background: darken($color, 5);
+          box-shadow: 0 1px 0 darken($color, 8);
+          cursor: pointer;
+        }
+      }
+
+      &#{$module}--shell {
+        background: transparent;
+        box-shadow: inset 0 0 0 1px $color;
+        color: $color;
+
+        &#{$module}--hover {
+          /* stylelint-disable max-nesting-depth */
+          &:hover,
+          &:focus {
+            background: transparent;
+            box-shadow: inset 0 0 0 1px darken($color, 8);
+            color: darken($color, 8);
+          }
+          /* stylelint-enable */
+        }
+      }
+    }
+  }
+
+  &__icon {
+    margin: 0 4px 0 -2px;
+    position: absolute;
+    top: 4px;
+
+    /* stylelint-disable scss/selector-no-redundant-nesting-selector */
+    & + #{$module}__label {
+      /* stylelint enable */
+      margin: 0 0 0 17px;
+    }
+  }
+}

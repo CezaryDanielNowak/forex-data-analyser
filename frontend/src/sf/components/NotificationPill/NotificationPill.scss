@@ -1,0 +1,11 @@
+.ts-NotificationPill {
+  $module: &;
+
+  &.ts-PillButton {
+    box-shadow: none;
+    line-height: 18px;
+    padding: 1px 7px 0;
+    margin-left: 5px;
+    font-size: 10px;
+  }
+}

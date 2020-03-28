@@ -1,0 +1,20 @@
+.ts-Card {
+  $module: &;
+
+  background-color: palette(background, light);
+  border-radius: 6px;
+  position: relative;
+
+  &--shadow {
+    box-shadow: 0 0 32px 0 rgba(palette(text, gray-dark), .2);
+
+    &#{$module}--small {
+      box-shadow: 0 0 10px 0 rgba(palette(text, gray-dark), .2);
+    }
+  }
+
+  &--full-width {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

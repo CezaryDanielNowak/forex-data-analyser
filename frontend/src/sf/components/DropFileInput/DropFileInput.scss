@@ -1,0 +1,71 @@
+.ts-DropFileInput {
+  $module: &;
+
+  &__button {
+    margin-top: 10px;
+  }
+
+  &__dropzone {
+    background-color: palette(background, light);
+    border: dashed 2px palette(background, mid-light);
+    border-radius: 6px;
+    height: 130px;
+    padding: 32px 0 23px;
+    width: 156px;
+    cursor: pointer;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__dropzone-content {
+    align-items: center;
+    color: palette(text, gray-dark);
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  &__dropzone-content-icon,
+  &__dropzone-content-text {
+    opacity: .5;
+    text-align: center;
+  }
+
+  &__extra-text {
+    color: palette(text, gray-dark);
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 29px;
+    opacity: .5;
+
+    &--mobile {
+      margin-left: 0;
+    }
+  }
+
+  &__label {
+    @include form-label;
+
+    display: block;
+  }
+
+  &__label-optional {
+    opacity: .5;
+  }
+
+  &__preview {
+    border: dashed 2px palette(background, mid-light);
+    border-radius: 6px;
+    margin-top: 20px;
+    width: 156px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+}

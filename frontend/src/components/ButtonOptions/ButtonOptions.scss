@@ -1,0 +1,58 @@
+.ts-ButtonOptions {
+  $module: &;
+
+  &__button {
+    background: var(--color_secondaryButtonFill);
+    border: solid 2px var(--color_secondaryButtonOutline);
+    color: var(--color_secondaryButonLabelText);
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+    max-width: 150px;
+    min-height: 44px;
+    min-width: 150px;
+    padding: 12px 0;
+    text-align: center;
+    width: 100%;
+
+    @include xxsm-up {
+      max-width: 200px;
+    }
+
+    &--size-small {
+      min-height: 22px;
+      padding: 6px 0;
+    }
+
+    &--active,
+    &:hover,
+    &:focus {
+      background-color: palette(action-element);
+      border: solid 2px palette(action-element);
+      color: palette(text, light);
+    }
+  }
+
+  &__form-error {
+    color: palette(error);
+    font-size: 12px;
+    margin: 15px 0;
+    text-align: center;
+  }
+
+  &__header {
+    color: palette(text, gray-dark);
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    margin-top: 45px;
+    text-align: center;
+  }
+
+  &__options-wrapper {
+    align-items: stretch;
+    display: flex;
+    justify-content: space-around;
+  }
+}

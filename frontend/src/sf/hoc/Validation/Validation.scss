@@ -1,0 +1,44 @@
+.ts-Validation {
+  $module: &;
+
+  position: relative;
+
+  &--with-error {
+    border: 1px palette(error) solid;
+    box-shadow: 0 0 2px palette(error);
+  }
+
+  &__hint {
+    background-color: palette(background, dark);
+    border-radius: 5px;
+    color: palette(text, light);
+    display: block;
+    height: 0;
+    left: 0;
+    max-width: 100%;
+    min-width: 320px;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    position: absolute;
+    top: 100%;
+    transform: translate(0, -20px);
+    transition: all .3s ease-in-out;
+    width: calc(100vw - 40px);
+    z-index: 998;
+
+    &--error {
+      background: palette(background, error);
+    }
+  }
+
+  &__input {
+    &:focus ~ #{$module}__hint {
+      padding: 20px;
+      opacity: 1;
+      margin-top: 20px;
+      transform: translate(0, 0);
+      height: auto;
+    }
+  }
+}

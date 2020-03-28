@@ -1,0 +1,13 @@
+.ts-TextArea {
+  $module: &;
+
+  @include form-input;
+
+  position: relative;
+  z-index: 2;
+  padding: 12px;
+
+  @include placeholder {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,296 @@
+/**
+ * Pagination Component Style for uxcore
+ * @author
+ *
+ * Copyright 2014-2015, Uxcore Team, Alinw.
+ * All rights reserved.
+ */
+.kuma-page {
+  font-size: 12px;
+  font-family: 'Arial';
+  user-select: none;
+  color: rgba(31, 56, 88, 0.6);
+}
+.kuma-page:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}
+.kuma-page-total {
+  font-size: 10px;
+  min-width: 28px;
+  height: 28px;
+  line-height: 28px;
+  float: left;
+  margin-right: 12px;
+  -webkit-user-select: auto;
+}
+.kuma-page-item {
+  cursor: pointer;
+  min-width: 28px;
+  height: 28px;
+  border: 1px solid rgba(31, 56, 88, 0.3);
+  border-radius: 3px;
+  margin-right: 8px;
+  line-height: 26px;
+  text-align: center;
+  list-style: none;
+  float: left;
+  background-color: #fff;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.kuma-page-item a {
+  text-decoration: none;
+  color: rgba(31, 56, 88, 0.6);
+}
+.kuma-page-item:hover {
+  border-color: #498EE6;
+}
+.kuma-page-item:hover a {
+  color: #498EE6;
+}
+.kuma-page-item-active {
+  background: #498EE6;
+  border-color: #498EE6;
+}
+.kuma-page-item-active a {
+  color: white;
+}
+.kuma-page-item-active:hover a {
+  color: white;
+}
+.kuma-page-jump-prev,
+.kuma-page-jump-next {
+  margin-right: 8px;
+}
+.kuma-page-jump-prev:after,
+.kuma-page-jump-next:after {
+  content: "•••";
+  display: block;
+  letter-spacing: 2px;
+  color: rgba(31, 56, 88, 0.4);
+  font-size: 12px;
+  margin-top: 1px;
+}
+.kuma-page-jump-prev:hover:after {
+  font-family: "uxcore";
+  content: "\e65e";
+}
+.kuma-page-jump-next:hover:after {
+  font-family: "uxcore";
+  content: "\e65f";
+}
+.kuma-page-prev,
+.kuma-page-next,
+.kuma-page-jump-prev,
+.kuma-page-jump-next {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  color: rgba(31, 56, 88, 0.4);
+  font-size: 10px;
+  list-style: none;
+  min-width: 28px;
+  height: 28px;
+  line-height: 26px;
+  float: left;
+  text-align: center;
+}
+.kuma-page-prev {
+  margin-right: 8px;
+}
+.kuma-page-prev a {
+  text-decoration: none;
+}
+.kuma-page-next a {
+  text-decoration: none;
+}
+.kuma-page-prev,
+.kuma-page-next {
+  border: 1px solid rgba(31, 56, 88, 0.3);
+  border-radius: 3px;
+  font-size: 18px;
+}
+.kuma-page-prev a,
+.kuma-page-next a {
+  color: rgba(31, 56, 88, 0.4);
+}
+.kuma-page-prev a:after,
+.kuma-page-next a:after {
+  display: inline-block;
+  vertical-align: top;
+}
+.kuma-page-prev:hover,
+.kuma-page-next:hover {
+  border-color: #498EE6;
+}
+.kuma-page-prev:hover a,
+.kuma-page-next:hover a {
+  color: #498EE6;
+}
+.kuma-page-disabled {
+  cursor: not-allowed;
+  background-color: rgba(31, 56, 88, 0.06);
+  border: none;
+  line-height: 28px;
+}
+.kuma-page-disabled a {
+  color: rgba(31, 56, 88, 0.2);
+}
+.kuma-page-disabled:hover {
+  background-color: rgba(31, 56, 88, 0.06);
+  border-color: rgba(31, 56, 88, 0.06);
+}
+.kuma-page-disabled:hover a {
+  color: rgba(31, 56, 88, 0.2);
+}
+.kuma-page-options {
+  float: left;
+  margin-left: 15px;
+}
+.kuma-page-options-size-changer {
+  float: left;
+  width: 80px;
+}
+.kuma-page-options-size-changer .kuma-select2-selection {
+  height: 28px;
+}
+.kuma-page-options-size-changer .kuma-select2-selection .kuma-select2-selection__rendered {
+  line-height: 26px;
+}
+.kuma-page-options-size-changer .kuma-select2-selection-selected-value {
+  padding-right: 0px;
+}
+.kuma-page-options-size-changer .kuma-select2-arrow {
+  height: 26px;
+}
+.kuma-page-options-quick-jumper {
+  height: 28px;
+  line-height: 28px;
+  float: left;
+}
+.kuma-page-options-quick-jumper input {
+  display: inline-block;
+  margin: 0 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(31, 56, 88, 0.3);
+  outline: none;
+  width: 50px;
+  height: 28px;
+  line-height: 26px;
+  text-align: center;
+  vertical-align: top;
+}
+.kuma-page-options-quick-jumper input:hover {
+  border-color: rgba(31, 56, 88, 0.4);
+}
+.kuma-page-options-quick-jumper input:focus {
+  background-color: #fff;
+}
+.kuma-page-simple .kuma-page-prev,
+.kuma-page-simple .kuma-page-next {
+  font-size: 10px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 16px;
+}
+.kuma-page-simple .kuma-page-disabled {
+  line-height: 18px;
+}
+.kuma-page-simple .kuma-page-prev {
+  margin-right: 4px;
+}
+.kuma-page-simple .kuma-page-current {
+  color: rgba(31, 56, 88, 0.8);
+  margin-right: 1px;
+}
+.kuma-page-simple .kuma-page-simple-pager {
+  float: left;
+  margin-right: 8px;
+  margin-left: 4px;
+  line-height: 18px;
+}
+.kuma-page-simple .kuma-page-simple-pager input {
+  margin: 0 8px;
+  background-color: #fff;
+  border: 1px solid rgba(31, 56, 88, 0.3);
+  outline: none;
+  width: 30px;
+  min-height: 20px;
+  text-align: center;
+}
+.kuma-page-simple .kuma-page-simple-pager input:hover {
+  border-color: rgba(31, 56, 88, 0.4);
+}
+.kuma-page.mini .kuma-page-prev,
+.kuma-page.mini .kuma-page-next,
+.kuma-page.mini .kuma-page-jump-prev,
+.kuma-page.mini .kuma-page-jump-next {
+  font-size: 10px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 16px;
+}
+.kuma-page.mini .kuma-page-prev,
+.kuma-page.mini .kuma-page-jump-next {
+  margin-right: 6px;
+}
+.kuma-page.mini .kuma-page-disabled {
+  line-height: 18px;
+}
+.kuma-page.mini .kuma-page-item {
+  margin-right: 6px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+}
+.kuma-page.mini .kuma-page-total {
+  height: 18px;
+  line-height: 18px;
+  min-height: 18px;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-quick-jumper {
+  height: 18px;
+  line-height: 18px;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-quick-jumper input {
+  width: 36px;
+  height: 18px;
+  line-height: 18px;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-quick-jumper input:hover {
+  border-color: rgba(31, 56, 88, 0.4);
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-quick-jumper input:focus {
+  background-color: #fff;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-size-changer .kuma-select2-selection {
+  height: 18px;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-size-changer .kuma-select2-selection .kuma-select2-selection__rendered {
+  line-height: 16px;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-size-changer .kuma-select2-selection .kuma-select2-selection__rendered > span {
+  vertical-align: middle;
+}
+.kuma-page.mini .kuma-page-options .kuma-page-options-size-changer .kuma-select2-selection .kuma-select2-arrow {
+  height: 14px;
+  line-height: 14px;
+}
+.kuma-page .kuma-page-options-size-changer {
+  font-size: 12px;
+  margin-right: 12px;
+}
+.kuma-page-options-size-changer-dropdown {
+  font-size: 12px;
+}
+.kuma-page-options-size-changer-dropdown .kuma-select2-dropdown-menu-item {
+  padding: 7px 16px 7px 11px;
+}
+.kuma-page-unknown-total {
+  float: left;
+  line-height: 28px;
+  padding: 0 16px 0 8px;
+}

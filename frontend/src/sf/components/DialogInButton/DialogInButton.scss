@@ -1,0 +1,25 @@
+.ts-DialogInButton {
+  $module: &;
+
+  &__dialog {
+    &.ts-Dialog--open {
+      z-index: get-index(reportAProblemForm);
+    }
+
+    &.ts-Dialog--in-transition {
+      z-index: get-index(reportAProblemForm);
+    }
+
+    .ts-Dialog__header {
+      display: none;
+    }
+
+    .ts-Dialog__body {
+      margin: 0;
+
+      @include xsm-up {
+        padding: 50px 100px;
+      }
+    }
+  }
+}

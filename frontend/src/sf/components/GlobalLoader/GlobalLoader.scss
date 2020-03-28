@@ -1,0 +1,32 @@
+.ts-GlobalLoader {
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: get-index(globalLoader);
+
+  &--theme-default {
+    background: rgba(palette(background, black), .4);
+  }
+
+  &--theme-light {
+    background: rgba(palette(background, light), .9);
+  }
+
+  &__custom-message {
+    color: palette(text, light);
+    font-family: font(sans);
+    font-size: 18px;
+    padding: 18px 5%;
+    position: absolute;
+    text-align: center;
+    top: calc(50% + 50px);
+    width: 100%;
+  }
+
+  &__spinner {
+    margin: 0 auto;
+    top: calc(50vh - 40px);
+  }
+}

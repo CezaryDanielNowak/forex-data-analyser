@@ -1,0 +1,68 @@
+.ts-ValidationTextArea {
+  $module: &;
+
+  margin-top: 20px;
+
+  &__field {
+    @include form-input;
+
+    height: auto;
+    max-width: 100%;
+    padding: 12px;
+
+    &--danger {
+      border: 1px solid palette(error);
+      box-shadow: 0 0 2px palette(error);
+    }
+
+    &--warning {
+      border: 1px solid palette(warning);
+      box-shadow: 0 0 2px palette(warning);
+    }
+
+    + #{$module}__hint {
+      background-color: palette(background, dark);
+      border-radius: 5px;
+      color: palette(text, light);
+      display: block;
+      height: 0;
+      left: 0;
+      max-width: 100%;
+      min-width: 320px;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      position: relative;
+      transform: translateY(-20px);
+      transition: all .3s ease-in-out;
+      width: calc(100vw - 40px);
+      z-index: 998;
+
+      &--error {
+        background: palette(background, error);
+      }
+    }
+
+    &:focus + #{$module}__hint {
+      padding: 20px;
+      opacity: 1;
+      margin-top: 20px;
+      transform: translateY(0);
+      height: auto;
+    }
+  }
+
+  &__field-wrap {
+    display: block;
+
+    &--has-hint {
+      position: relative;
+    }
+  }
+
+  &__label {
+    @include form-label;
+
+    display: block;
+  }
+}

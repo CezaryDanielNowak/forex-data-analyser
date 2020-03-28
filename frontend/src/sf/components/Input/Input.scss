@@ -1,0 +1,13 @@
+.ts-Input {
+  $module: &;
+
+  @include form-input;
+
+  position: relative;
+  z-index: 2;
+  padding: 0 14px;
+
+  @include placeholder {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,139 @@
+.ts-ListWithTableOfContents {
+  $module: &;
+
+  counter-reset: section;
+
+  &__intro,
+  &__intro-secondary {
+    font-size: 18px;
+    font-weight: 100;
+    line-height: 1.5;
+  }
+
+  &__intro {
+    margin-bottom: 40px;
+  }
+
+  &__intro-secondary {
+    margin-bottom: 5px;
+  }
+
+  &__p {
+    color: palette(text, gray-dark);
+    margin-top: 30px;
+  }
+
+  &__section {
+    margin-top: 40px;
+    position: relative;
+
+    &:before {
+      background-color: palette(background, gray-light);
+      content: none;
+      display: block;
+      height: calc(100% - 34px);
+      position: absolute;
+      width: 1px;
+      left: -73px;
+      top: 52px;
+      z-index: 1;
+
+      @include md-up {
+        content: '';
+      }
+    }
+
+    p {
+      color: palette(text, gray-dark);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.57;
+      margin: 10px 0 0;
+    }
+
+    li {
+      color: palette(text, gray-dark);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.36;
+      padding-left: 7px;
+    }
+
+    ol {
+      padding-left: 25px;
+    }
+
+    img {
+      border-radius: 6px;
+      box-shadow: 0 0 55px 0 rgba(palette(text, gray-dark), .2);
+      margin: 20px 0;
+      max-width: 100%;
+    }
+  }
+
+  &__section-header {
+    margin-bottom: 10px;
+  }
+
+  &__section-header-link {
+    $headerLinkFontSize: 14px;
+
+    color: palette(text, dark);
+    font-family: font(slab);
+    font-size: $headerLinkFontSize;
+    font-weight: 700;
+    line-height: 2.29;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all .2s cubic-bezier(.25, .35, .25, 1.25);
+
+    @include lvhaf {
+      outline: none;
+    }
+
+    &:focus,
+    &:hover {
+      color: palette(text, gray-dark);
+      text-decoration: underline;
+    }
+
+    &:before {
+      background-color: palette(background, light);
+      border: 1px solid palette(background, gray-light);
+      border-radius: 50%;
+      box-sizing: border-box;
+      color: palette(text, gray-light);
+      content: none;
+      counter-increment: section;
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 300;
+      height: 44px;
+      left: -50px;
+      line-height: 44px;
+      position: absolute;
+      text-align: center;
+      top: $headerLinkFontSize / 2;
+      transform: translate(-100%, -50%);
+      width: 44px;
+      z-index: 2;
+
+      @include md-up {
+        content: counter(section);
+      }
+    }
+  }
+
+  &__title {
+    text-align: center;
+
+    @include xsm-up {
+      margin: 69px 0 14px;
+    }
+
+    &:after {
+      max-width: 300px;
+    }
+  }
+}

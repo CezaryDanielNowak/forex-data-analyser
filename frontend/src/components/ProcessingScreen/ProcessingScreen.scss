@@ -1,0 +1,9 @@
+.ts-ProcessingScreen {
+  $module: &;
+
+  &__spinner-container {
+    width: 60px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+  }
+}

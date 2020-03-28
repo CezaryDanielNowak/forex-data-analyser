@@ -1,0 +1,17 @@
+.ts-JsonPrettyPrint {
+  $module: &;
+
+  border-radius: 5px;
+
+  &.language-json {
+    .token {
+      &.property {
+        color: #6959cc;
+      }
+
+      &.string {
+        color: palette(text, gray-dark);
+      }
+    }
+  }
+}

@@ -1,0 +1,642 @@
+/**
+ * Grid Component Style for uxcore
+ * @author zhouquan.yezq
+ *
+ * Copyright 2014-2015, Uxcore Team, Alinw.
+ * All rights reserved.
+ */
+.kuma-uxmask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  min-height: 40px;
+  line-height: 40px;
+  background-color: #000;
+  z-index: 10;
+  left: 0px;
+  top: 0px;
+  opacity: .3;
+  filter: "alpha(opacity=30)";
+  display: block;
+}
+.kuma-uxmask-hide {
+  display: none;
+}
+.kuma-uxmask-centerblk {
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+.kuma-uxmask-centerblk .kuma-loading {
+  display: inline-block;
+  vertical-align: middle;
+}
+.kuma-uxmask-centerblk::after {
+  content: '';
+  height: 50%;
+  display: inline-block;
+}
+.kuma-uxmask-text {
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 36px;
+  display: inline-block;
+  margin-left: 5px;
+}
+@keyframes tableMaskFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+@keyframes tableMaskFadeOut {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.tableMaskFade-enter,
+.tableMaskFade-appear {
+  opacity: 0;
+  animation-timing-function: ease-out;
+  animation-duration: .3s;
+}
+.tableMaskFade-enter-active,
+.tableMaskFade-appear-active {
+  animation-name: tableMaskFadeIn;
+}
+.tableMaskFade-leave {
+  opacity: 0.3;
+  animation-timing-function: ease-out;
+  animation-duration: .3s;
+}
+.tableMaskFade-leave-active {
+  animation-name: tableMaskFadeOut;
+}
+.kuma-uxtable-actionbar {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 6px 0px 4px;
+}
+.kuma-uxtable-actionbar-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.kuma-uxtable-column-picker {
+  float: right;
+  position: relative;
+}
+.kuma-uxtable-column-picker .kuma-icon-list {
+  vertical-align: middle;
+  margin-right: 5px;
+  color: rgba(0, 0, 0, 0.4);
+}
+.kuma-uxtable-column-picker-title {
+  vertical-align: middle;
+  color: #3C99D8;
+}
+.kuma-uxtable-column-picker-trigger {
+  padding: 4px 10px;
+  z-index: 12;
+  position: relative;
+  background: white;
+}
+.kuma-uxtable-column-picker-dropdown {
+  position: absolute;
+  right: 0;
+  top: 34px;
+  z-index: 11;
+  background: white;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+  padding: 10px 20px;
+  min-height: 200px;
+  min-width: 200px;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-tree {
+  float: right;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-tree.no-group {
+  float: left;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-tree li span.kuma-tree-switcher {
+  display: none;
+}
+.kuma-uxtable-searchbar {
+  float: right;
+  position: relative;
+  width: 355px;
+}
+.kuma-uxtable-searchbar .kuma-input {
+  height: 32px;
+}
+.kuma-uxtable-searchbar .kuma-icon-search {
+  position: absolute;
+  line-height: 16px;
+  color: rgba(31, 56, 88, 0.4);
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+}
+.kuma-uxtable-searchbar .kuma-icon-search:hover {
+  color: rgba(31, 56, 88, 0.6);
+}
+.kuma-uxtable-linkbar {
+  float: right;
+  line-height: 30px;
+  margin-right: 10px;
+}
+.kuma-uxtable-linkbar a {
+  vertical-align: middle;
+}
+.kuma-uxtable-linkbar-cutoff {
+  border-right: 2px solid rgba(31, 56, 88, 0.1);
+  height: 14px;
+  display: inline-block;
+  margin: 0 12px;
+  vertical-align: middle;
+}
+.kuma-uxtable-linkbar-item {
+  cursor: pointer;
+  display: inline-block;
+}
+.kuma-uxtable {
+  border-collapse: collapse;
+  position: relative;
+  color: rgba(0, 0, 0, 0.8);
+  table-layout: fixed;
+}
+.kuma-uxtable input::-ms-clear {
+  display: none;
+}
+.kuma-uxtable .half-checked {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("svg/checkbox-partial-checked.svg") no-repeat;
+  vertical-align: text-bottom;
+  margin-right: 12px;
+  color: #498EE6;
+}
+.kuma-uxtable-content {
+  overflow-x: auto;
+  position: relative;
+}
+.kuma-uxtable-content-scroller {
+  display: inline-block;
+}
+.kuma-uxtable-header-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+.kuma-uxtable-body-wrapper {
+  border-top: none;
+  position: relative;
+  min-height: 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.kuma-uxtable-fixed-body-wrapper {
+  overflow-x: hidden;
+}
+.kuma-uxtable-header {
+  background-color: rgba(31, 56, 88, 0.06);
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 100%;
+  white-space: nowrap;
+  display: inline-block;
+}
+.kuma-uxtable-body {
+  position: relative;
+  display: inline-block;
+  min-width: 100%;
+  min-height: 40px;
+  white-space: normal;
+  background-color: #F8F8F8;
+}
+.kuma-uxtable-body-emptyword {
+  text-align: center;
+  vertical-align: middle;
+}
+.kuma-uxtable-row {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  border-bottom: none;
+}
+.kuma-uxtable-row .kuma-uxtable-row-cells {
+  transition: background-color 0.15s ease-out;
+}
+.kuma-uxtable-row:first-child {
+  border-top: none;
+}
+.kuma-uxtable-row.even .kuma-uxtable-row-cells {
+  background-color: rgba(31, 56, 88, 0.06);
+}
+.kuma-uxtable-row-hover .kuma-uxtable-row-cells {
+  background-color: rgba(73, 141, 230, 0.06);
+}
+.kuma-uxtable-row-hover.even .kuma-uxtable-row-cells {
+  background-color: rgba(73, 141, 230, 0.06);
+}
+.kuma-uxtable-cell {
+  display: inline-block;
+  text-align: left;
+  overflow: hidden;
+  height: 100%;
+  padding: 0 0 0 20px;
+  vertical-align: top;
+  position: relative;
+  word-break: break-all;
+  height: 50px;
+  line-height: 50px;
+}
+.kuma-uxtable-cell .kuma-icon-information,
+.kuma-uxtable-cell .uxicon-tishi-full {
+  color: #45a8e6;
+  -webkit-text-stroke-width: 0;
+  font-size: 16px;
+  margin-left: 4px;
+}
+.kuma-uxtable-cell > div {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  height: 50px;
+  width: 100%;
+  white-space: nowrap;
+}
+.kuma-uxtable-cell > input.kuma-input {
+  vertical-align: top;
+  padding: 0 10px;
+  margin-top: 7px;
+  height: 36px;
+}
+.kuma-uxtable-cell .kuma-column-picker {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+.kuma-uxtable-cell .kuma-select2 {
+  vertical-align: top;
+  margin-top: 7px;
+}
+.kuma-uxtable-row.multiline .kuma-uxtable-cell {
+  height: auto;
+  min-height: 50px;
+  line-height: inherit;
+  white-space: normal;
+}
+.kuma-uxtable-row.multiline .kuma-uxtable-cell .default-cell {
+  white-space: normal;
+  height: auto;
+}
+.kuma-uxtable-row.multiline .kuma-uxtable-cell > div {
+  height: auto;
+  white-space: normal;
+}
+.kuma-uxtable-row.multiline-centered .kuma-uxtable-row-cells {
+  display: flex;
+  align-items: center;
+}
+.kuma-uxtable-row.multiline-centered .kuma-uxtable-cell {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.kuma-uxtable-cell-field.hasError .kuma-input,
+.kuma-uxtable-cell-field.hasError .kuma-select2-selection {
+  background: rgba(240, 70, 48, 0.06);
+  border-color: #F04631;
+}
+.kuma-uxtable-cell-field.hasError .kuma-checkbox-group {
+  color: #F04631;
+}
+.kuma-uxtable-select-cell-field .kuma-select2 {
+  display: block;
+}
+.kuma-date-cell-field .kuma-calendar-picker-input {
+  line-height: 36px;
+}
+.kuma-date-cell-field .kuma-calendar-picker-input .kuma-icon-calender,
+.kuma-date-cell-field .kuma-calendar-picker-input .kuma-icon-close {
+  line-height: 24px;
+}
+.kuma-uxtable-header .kuma-uxtable-cell > div {
+  overflow: visible;
+}
+.kuma-uxtable-columnpicker {
+  max-width: 400px;
+  max-height: 300px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: #f5f5f5;
+  z-index: 2;
+  right: 0;
+  top: 32px;
+  padding: 5px 20px 10px 10px;
+  display: none;
+}
+.kuma-uxtable-columnpicker .kuma-tree {
+  padding: 0px;
+}
+.kuma-uxtable-columnpicker .kuma-tree li a {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kuma-column-picker-container {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  cursor: pointer;
+  padding-right: 20px;
+  font-weight: normal;
+  background: rgba(31, 56, 88, 0.06);
+}
+.kuma-column-picker-container.hasGroup .kuma-uxtable-colmnpicker {
+  top: 50px;
+}
+.kuma-uxtable-tree-icon {
+  cursor: pointer;
+  vertical-align: middle;
+}
+.kuma-uxtable-tree-icon > .kuma-icon {
+  font-size: 16px;
+  color: #999999;
+}
+.kuma-uxtable-tree-icon > .kuma-icon:before {
+  transition: transform 0.3s ease;
+  display: inline-block;
+  zoom: 1;
+}
+.kuma-uxtable-tree-icon > .kuma-icon.kuma-icon-triangle-right__open:before {
+  transform: rotate(90deg);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+  -ms-transform: rotate(90deg);
+}
+.kuma-uxtable-emptyicon {
+  width: 22px;
+  display: inline-block;
+}
+.kuma-subgrid-mode .kuma-uxtable-body-wrapper {
+  border: none;
+}
+.kuma-uxtable-page {
+  text-align: right;
+  padding: 10px 0px;
+}
+.kuma-uxtable-page .kuma-select2-selection__rendered {
+  text-align: left;
+}
+.kuma-uxtable .kuma-page {
+  display: inline-block;
+}
+.kuma-uxtable-h-sort {
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  height: 20px;
+  width: 14px;
+  display: inline-block;
+  color: #999;
+}
+.kuma-uxtable-h-sort .kuma-icon {
+  font-size: 13px;
+  height: 14px;
+  line-height: 11px;
+  position: absolute;
+  -webkit-text-stroke-width: 0;
+}
+.kuma-uxtable-h-sort .kuma-icon.active {
+  color: #498EE6;
+}
+.kuma-uxtable-h-sort .kuma-icon-triangle-up {
+  top: 0;
+}
+.kuma-uxtable-h-sort .kuma-icon-triangle-down {
+  bottom: 0;
+}
+.action-container .action {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  padding: 0 12px;
+}
+.action-container .action.disabled {
+  color: rgba(31, 56, 88, 0.3);
+  cursor: not-allowed;
+}
+.action-container .action.first-action {
+  padding-left: 0px;
+}
+.action-container .action i {
+  color: #3C99D8;
+  vertical-align: middle;
+  font-size: 14px;
+}
+.action-container .action.kuma-button {
+  padding: 0 16px;
+}
+.action-container .action.kuma-button i {
+  color: #498EE6;
+}
+.action-container .action.more-action {
+  line-height: 49px;
+}
+.action-container .action + .kuma-button {
+  margin-left: 12px;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-dropdown-menu {
+  min-width: 200px;
+  box-shadow: 0 1px 8px #ced1d2;
+  max-height: 300px;
+  border-radius: 3px;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-dropdown-menu .kuma-dropdown-menu-item-active,
+.kuma-uxtable-column-picker-dropdown .kuma-dropdown-menu .kuma-dropdown-menu-item:hover {
+  background-color: #fffff2;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-dropdown-menu .kuma-dropdown-menu-item-selected {
+  background-color: white;
+  color: #498EE6;
+}
+.kuma-uxtable-column-picker-dropdown .kuma-dropdown-menu .kuma-dropdown-menu-item-selected:before {
+  content: "\e611";
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-family: kuma!important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: .2px;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 32px;
+}
+.kuma-uxtable span.indent {
+  display: inline-block;
+  width: 27px;
+  margin: 0;
+}
+.kuma-uxtable span.indent.hasCheck {
+  margin-right: 25px;
+}
+.kuma-uxtable-body-fixed,
+.kuma-uxtable-body-right-fixed {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.kuma-uxtable-body-fixed {
+  margin-right: -20px;
+}
+.kuma-uxtable-left-fixed-table,
+.kuma-uxtable-right-fixed-table {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  transition: box-shadow 0.3s ease-out;
+  background: white;
+}
+.kuma-uxtable-left-fixed-table.has-scroll,
+.kuma-uxtable-right-fixed-table.has-scroll {
+  box-shadow: 1px 0 6px rgba(0, 0, 0, 0.2);
+}
+.kuma-uxtable-left-fixed-table.end-of-scroll,
+.kuma-uxtable-right-fixed-table.end-of-scroll {
+  box-shadow: -1px 0 6px rgba(0, 0, 0, 0.2);
+}
+.kuma-uxtable-left-fixed-table {
+  left: 0;
+}
+.kuma-uxtable-right-fixed-table {
+  right: 0;
+}
+.kuma-uxtable-body-no {
+  height: 100%;
+  overflow-y: auto;
+}
+.kuma-uxtable-body-scroll {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: scroll;
+  z-index: 1;
+  height: 100%;
+}
+.kuma-uxtable-header-no {
+  overflow: scroll;
+}
+.kuma-uxtable-header-scroll {
+  position: static;
+  overflow: scroll;
+  z-index: 1;
+  height: 100%;
+}
+.kuma-uxtable-header-scroll .kuma-uxtable-header {
+  background-color: rgba(31, 56, 88, 0.06);
+}
+.kuma-uxtable-header-column-group {
+  display: inline-block;
+}
+.kuma-uxtable-header-group-name {
+  line-height: 50px;
+  text-align: center;
+}
+.kuma-uxtable-column-message {
+  max-width: 200px;
+}
+.kuma-uxtable-row-selector {
+  vertical-align: middle;
+}
+.kuma-uxtable-expand-icon {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 18px;
+  line-height: 18px;
+  margin-right: 6px;
+  color: rgba(31, 56, 88, 0.4);
+}
+.kuma-uxtable-expand-icon .kuma-icon-triangle-right:before {
+  transition: transform .3s ease;
+  display: inline-block;
+}
+.kuma-uxtable-expand-icon .kuma-icon-triangle-right.expanded:before {
+  transform: rotate(90deg);
+}
+.kuma-uxtable-row-tree-selector {
+  margin-right: 12px;
+}
+.kuma-uxtable-tree-mode .kuma-uxtable-row.even .kuma-uxtable-row-cells {
+  background: white;
+}
+.kuma-uxtable-tree-mode .kuma-uxtable-row .kuma-uxtable-row-cells {
+  border-bottom: 1px solid rgba(31, 56, 88, 0.1);
+}
+.kuma-uxtable-tree-mode .kuma-uxtable-content .kuma-uxtable-row.kuma-uxtable-row-hover .kuma-uxtable-row-cells {
+  background-color: white;
+}
+.kuma-uxtable-border-line .kuma-uxtable-content {
+  border: 1px solid rgba(31, 56, 88, 0.1);
+}
+.kuma-uxtable-border-line .kuma-uxtable-row.even .kuma-uxtable-row-cells {
+  background: white;
+}
+.kuma-uxtable-border-line .kuma-uxtable-row .kuma-uxtable-row-cells {
+  border-bottom: 1px solid rgba(31, 56, 88, 0.1);
+}
+.kuma-uxtable-border-line .kuma-uxtable-row.last .kuma-uxtable-row-cells {
+  border-bottom: none;
+}
+.kuma-uxtable-border-line .kuma-uxtable-cell {
+  border-right: 1px solid rgba(31, 56, 88, 0.1);
+}
+.kuma-uxtable-border-line .kuma-uxtable-cell.last {
+  border-right: none;
+}
+.kuma-uxtable-border-line .kuma-uxtable-header-group-name {
+  border-right: 1px solid rgba(31, 56, 88, 0.1);
+  border-bottom: 1px solid rgba(31, 56, 88, 0.1);
+}
+.kuma-uxtable-border-line .kuma-uxtable-row-hover.even .kuma-uxtable-row-cells {
+  background-color: rgba(73, 141, 230, 0.06);
+}
+.kuma-uxtable-border-line .kuma-uxtable-left-fixed-table {
+  border-right: 1px solid #e8e8e8;
+}
+.kuma-uxtable-cell-collapsed-button-more-dropdown .kuma-dropdown-menu > .kuma-dropdown-menu-item {
+  padding: 5px 16px;
+}
+.kuma-uxtable-cell-collapsed-button-more-dropdown .kuma-dropdown-menu > .kuma-dropdown-menu-item:hover {
+  background: rgba(31, 56, 88, 0.04);
+}
+.kuma-uxtable-cell-collapsed-button-more-dropdown .kuma-dropdown-menu > .kuma-dropdown-menu-item a {
+  color: #3C99D8;
+  cursor: pointer;
+}
+.kuma-uxtable-cell-collapsed-button-more-dropdown .kuma-dropdown-menu > .kuma-dropdown-menu-item.kuma-dropdown-menu-item-disabled {
+  background: rgba(31, 56, 88, 0.04);
+}
+.kuma-uxtable-cell-collapsed-button-more-dropdown .kuma-dropdown-menu > .kuma-dropdown-menu-item.kuma-dropdown-menu-item-disabled a {
+  color: rgba(31, 56, 88, 0.3);
+  cursor: not-allowed;
+}
+.kuma-uxtable-cell-collapsed-button-more-dropdown.kuma-uxtable-cell-collapsed-button-more-link-dropdown .kuma-dropdown-menu > .kuma-dropdown-menu-item {
+  padding: 5px 11px;
+}
+.kuma-uxtable-cell-collapsed-button-text {
+  vertical-align: middle;
+}
+.kuma-uxtable-cell-collapsed-button-split-line {
+  color: rgba(31, 56, 88, 0.1);
+}

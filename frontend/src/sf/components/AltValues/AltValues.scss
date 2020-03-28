@@ -1,0 +1,25 @@
+.ts-AltValues {
+  $module: &;
+
+  color: palette(accent-element, dark);
+  font-family: font(sans);
+  font-size: 14px;
+  font-weight: 300;
+  margin: -10px 0 -6px 15px;
+  text-align: left;
+
+  @media only screen and (max-width: 568px) {
+    margin: 0 0 -6px 1px;
+  }
+
+  &__button {
+    color: palette(accent-element, dark);
+    line-height: 1 !important;
+    min-width: 0 !important;
+    text-decoration: underline;
+
+    @include lvha {
+      color: palette(accent-element);
+    }
+  }
+}

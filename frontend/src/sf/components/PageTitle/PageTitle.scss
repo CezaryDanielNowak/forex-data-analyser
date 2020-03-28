@@ -1,0 +1,148 @@
+.ts-PageTitle {
+  $module: &;
+
+  &__title {
+    color: palette(navy);
+    font-family: font(slab);
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+  }
+
+  &__context {
+    color: palette(brand);
+    font-size: 14px;
+    margin: 0 0 0 8px;
+  }
+
+  &__subtitle {
+    color: palette(text, gray);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 12px 0 0;
+    text-align: center;
+
+    a {
+      &,
+      &:hover,
+      &:active {
+        color: palette(brand);
+      }
+    }
+  }
+
+  &--underline:after {
+    background: palette(brand);
+    content: '';
+    display: block;
+    height: 2px;
+    margin: 19px auto 0;
+    width: 130px;
+  }
+
+  &--huge {
+    #{$module}__title {
+      font-size: 36px;
+      line-height: 1.5;
+    }
+  }
+
+  &--big {
+    #{$module}__title {
+      font-size: 26px;
+      line-height: 1.5;
+    }
+  }
+
+  &--medium {
+    #{$module}__title {
+      font-size: 22px;
+      line-height: 1.5;
+    }
+  }
+
+  &--left {
+    #{$module}__title,
+    #{$module}__subtitle {
+      text-align: left;
+    }
+
+    &:after {
+      margin-left: 0;
+    }
+  }
+
+  &--right {
+    #{$module}__title,
+    #{$module}__subtitle {
+      text-align: right;
+    }
+
+    &:after {
+      margin-right: 0;
+    }
+  }
+
+  &--green {
+    #{$module}__title {
+      color: palette(brand);
+    }
+  }
+
+  &--white {
+    #{$module}__title {
+      color: palette(white);
+    }
+  }
+
+  &--light {
+    &#{$module}--underline:after {
+      background: palette(black, x-light);
+      content: '';
+      display: block;
+      height: 1px;
+      margin: 30px auto 0;
+      width: 200px;
+
+      @include sm-up() {
+        width: 320px;
+      }
+
+      @include md-up() {
+        width: 460px;
+      }
+
+      @include md-up() {
+        width: 782px;
+      }
+    }
+
+    #{$module}__title {
+      font-weight: 500;
+    }
+  }
+
+  .ts-realtor & {
+    &:after {
+      height: 3px;
+      margin: 12px auto;
+      width: 80px;
+      border-radius: 1px;
+      opacity: .9;
+    }
+
+    &__title {
+      font: font(sans);
+      font-weight: lighter;
+    }
+
+    &__subtitle {
+      margin: 0;
+      font: font(sans);
+      font-size: 14px;
+      font-weight: lighter;
+    }
+  }
+}

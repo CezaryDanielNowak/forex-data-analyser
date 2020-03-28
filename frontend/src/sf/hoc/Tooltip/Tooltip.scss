@@ -1,0 +1,56 @@
+.ts-Tooltip {
+  $module: &;
+
+  &__tooltip {
+    // INFO: The !importants are necessary to overwrite `react-tooltip` styles
+    background-color: palette(background, green) !important;
+    border-radius: 7px !important;
+    box-shadow: 0 0 7px 0 palette(text, gray-dark);
+    font-size: 12px !important;
+    font-weight: 300;
+    line-height: 12px;
+    max-width: 225px;
+    overflow: visible !important;
+    padding: 10px 15px !important;
+
+    @include sm-up {
+      max-width: 290px;
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font: inherit;
+      font-size: 100%;
+      vertical-align: baseline;
+    }
+
+    li {
+      margin: 0 0 5px;
+    }
+
+    @at-root {
+      &.place-top,
+      &.place-bottom {
+        &:after {
+          border-top-color: palette(background, green) !important;
+          border-bottom-color: palette(background, green) !important;
+        }
+      }
+
+      &.place-left,
+      &.place-right {
+        &:after {
+          border-left-color: palette(background, green) !important;
+          border-right-color: palette(background, green) !important;
+        }
+      }
+    }
+
+    &.show {
+      opacity: .95 !important;
+    }
+  }
+}

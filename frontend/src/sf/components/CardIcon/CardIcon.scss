@@ -1,0 +1,17 @@
+.ts-CardIcon {
+  $cards: 'american-express', 'visa', 'jcb', 'diners-club', 'discover', 'master-card';
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: inherit;
+  opacity: 0;
+  transition: opacity .3s ease-in-cubic;
+  width: inherit;
+
+  @each $card in $cards {
+    &--#{$card} {
+      background-image: url('/img/payment/#{$card}.svg');
+      opacity: 1;
+    }
+  }
+}

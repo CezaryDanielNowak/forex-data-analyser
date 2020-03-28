@@ -1,0 +1,29 @@
+{
+  "name": "next-is",
+  "repo": "CezaryDanielNowak/next-is.js",
+  "version": "2.0.0",
+  "description": "Micro javascript library to use in conditions.",
+  "main": "next-is.js",
+  "moduleType": [
+  	"amd"
+    "globals"
+  ],
+  "keywords": ["is.js", "conditions", "javascript", "objects", "validator", "validate", "string", "validate", "dates", "validate", "objects"],
+  "authors": [
+    "Cedrik Boudreau ( @Cedriking )",
+    "Cezary Daniel Nowak"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/CezaryDanielNowak/next-is.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Gruntfile.js",
+    "components.json",
+    "package.json",
+    "qunit-test"
+  ]
+}

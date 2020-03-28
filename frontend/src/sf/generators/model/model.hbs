@@ -1,0 +1,15 @@
+import atom from 'atom-js';
+// import store from 'sf/helpers/store';
+
+const MODEL_NAME = '{{ name }}';
+
+const model = atom.setup({
+  MODEL_NAME,
+  // persistenceLib: store,
+  methods: {},
+  validation: {},
+  parsers: {},
+})();
+// })(store.get(MODEL_NAME));
+
+export default model;

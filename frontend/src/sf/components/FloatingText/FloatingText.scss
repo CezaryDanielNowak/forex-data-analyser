@@ -1,0 +1,33 @@
+.ts-FloatingText {
+  $module: &;
+
+  background: palette(brand);
+  color: palette(text, light);
+  font-size: 13px;
+  left: 0;
+  opacity: 0;
+  padding: 17px 12px 11px;
+  position: fixed;
+  top: 0;
+  transform: translateY(-50px);
+  transition: opacity .3s,
+    transform .3s,
+    z-index .3s;
+  width: 100%;
+  z-index: -1;
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(-5px);
+    z-index: get-index(floatingText);
+  }
+
+  &--error {
+    background: palette(error);
+    color: palette(text, light);
+  }
+}
+
+.ts-Dialog .ts-FloatingText {
+  position: absolute;
+}

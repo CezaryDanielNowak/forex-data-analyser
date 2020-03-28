@@ -1,0 +1,58 @@
+.ts-MainLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+
+  &__lang-selector {
+    position: absolute;
+    top: 82px;
+    left: 0;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  &__header {
+    transition: margin-top 500ms,
+      opacity 1s;
+    transition-timing-function: ease;
+    opacity: 1;
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+      margin-top: -65px; // XXX:hardcoded value
+    }
+  }
+
+  &__content {
+    background: var(--color_siteBackground);
+    flex: 1 0 auto;
+    transition: opacity 500ms;
+    transition-timing-function: ease;
+    opacity: 1;
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &--dark {
+      background: transparent;
+    }
+
+    > :last-child {
+      padding-bottom: 50px;
+    }
+  }
+}
+.is-browser-ie10,
+.is-browser-ie11 {
+  .ts-MainLayout {
+    &__content {
+      > .ts-container {
+        border-top: .1px solid transparent; // Fix contact page on IE
+      }
+    }
+  }
+}

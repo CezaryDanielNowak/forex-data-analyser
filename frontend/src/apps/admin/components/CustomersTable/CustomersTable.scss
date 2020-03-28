@@ -1,0 +1,294 @@
+// TODO: create separate admin panel palette; hex color left on purpose
+.ts-CustomersTable {
+  $module: &;
+
+  &__table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: auto;
+
+    @include xsm-up {
+      width: 100%;
+    }
+  }
+
+  &__row {
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+
+    &:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    &:hover {
+      background-color: #e1e1e1;
+    }
+  }
+
+  &__row--archived {
+    opacity: .5;
+
+    #{$module}__label {
+      background-color: #555;
+      color: palette(text, light);
+    }
+  }
+
+  &__header-cell,
+  &__cell {
+    padding: 5px;
+
+    @include lg-up {
+      padding: 10px 10px 10px 15px;
+    }
+
+    @include sm-up {
+      padding: 10px;
+    }
+  }
+
+  &__cell--muted {
+    opacity: .4;
+  }
+
+  &__cell--nowrap {
+    white-space: nowrap;
+  }
+
+  &__cell--wrapped {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:nth-child(11), // registered date
+    &:nth-child(6) { // SSN
+      padding: 10px 0 !important;
+    }
+  }
+
+  &__header {
+    background-color: #f6f6f6;
+    color: #666;
+    font-size: .9em;
+  }
+
+  &__header-cell {
+    color: #666;
+    font-weight: 400;
+    text-align: left;
+    text-transform: uppercase;
+
+    @include md-down {
+      white-space: normal;
+    }
+
+    &--status,
+    &--authentication {
+      width: 120px;
+
+      @include lg-up {
+        width: 140px;
+      }
+    }
+
+    &--status {
+      @include md-down {
+        width: 100px;
+      }
+    }
+
+    &--pin {
+      width: 105px;
+
+      @include lg-up {
+        width: 120px;
+      }
+    }
+
+    &--credit-card {
+      padding: 10px 0 10px 10px;
+      white-space: normal;
+      width: 60px;
+
+      @include lg-up {
+        width: 110px;
+      }
+
+      @include md-up {
+        width: 100px;
+      }
+    }
+
+    &--ssn,
+    &--registered {
+      padding: 0;
+
+      @include lg-up {
+        width: 55px;
+      }
+
+      @include md-up {
+        width: 50px;
+      }
+    }
+
+    &--contact-method {
+      padding: 10px 0 10px 10px;
+      white-space: normal;
+      width: 100px;
+
+      @include lg-up {
+        width: 200px;
+      }
+
+      @include md-up {
+        width: 170px;
+      }
+    }
+
+    &--registered {
+      padding: 5px;
+      white-space: normal;
+      width: 60px;
+      word-break: break-all;
+
+      @include md-up {
+        width: 104px;
+      }
+
+      @include lg-up {
+        width: 140px;
+      }
+    }
+  }
+
+  &__empty-cell {
+    padding: 10px;
+  }
+
+  &__label {
+    border-radius: 5px;
+    display: block;
+    font-size: .8em;
+    line-height: 1;
+    padding: 7px;
+    text-align: center;
+    text-transform: uppercase;
+
+    @include lg-up {
+      padding: 7px 24px;
+    }
+
+    &--success {
+      background-color: #b8e986;
+      color: #475a33;
+    }
+
+    &--error {
+      background-color: #bc1e19;
+      color: #fff;
+    }
+
+    &--blacklist {
+      // use in combination with &--error
+      background-color: #000 !important;
+      color: #fff;
+    }
+
+    &--unknown {
+      background-color: #d0d0d0;
+      color: #475a33;
+    }
+  }
+
+  &__filters {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px auto;
+
+    @include sm-up {
+      margin-bottom: 20px;
+    }
+
+    @include xsm-up {
+      justify-content: space-between;
+    }
+  }
+
+  &__paginaton {
+    @include clearfix;
+
+    margin-bottom: 50px;
+    margin-top: 30px;
+
+    .ts-Pagination {
+      float: right;
+    }
+  }
+
+  // specificity
+  .ts-Select,
+  .ts-ValidationInput {
+    align-items: center;
+    display: flex;
+    line-height: 1;
+    margin-left: 10px;
+    padding-top: 0;
+
+    @include xsm-up {
+      margin-left: 0;
+    }
+  }
+
+  .ts-ValidationInput__field-wrap,
+  .ts-ValidationInput__label,
+  .ts-Select__field,
+  .ts-Select__label {
+    display: inline-block;
+  }
+
+  .ts-ValidationInput__field {
+    height: 42px;
+    width: 200px;
+  }
+
+  .ts-ValidationInput__label {
+    margin-right: 10px;
+    margin-bottom: 0;
+
+    @include xsm-up {
+      margin-right: 20px;
+    }
+  }
+
+  .ts-Select__label {
+    margin-bottom: 0;
+    margin-right: 10px;
+    position: relative;
+
+    @include xsm-up {
+      margin-right: 20px;
+    }
+  }
+
+  .ts-Select__field {
+    display: inline-block;
+    min-width: 250px;
+
+    @include xsm-up {
+      min-width: 320px;
+    }
+  }
+
+  &__search-filter-container {
+    display: flex;
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+
+  .ts-Button--not-icon {
+    margin-left: 10px;
+    min-width: 50px;
+  }
+}

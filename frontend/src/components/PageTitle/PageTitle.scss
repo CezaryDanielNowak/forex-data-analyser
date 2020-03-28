@@ -1,0 +1,88 @@
+.ts-PageTitle {
+  $module: &;
+
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+  &__title {
+    color: palette(text, gray-medium);
+    font-family: font(sans);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.33;
+    text-align: left;
+  }
+
+  &--with-hr {
+    margin-bottom: 15px;
+
+    &:after {
+      content: '';
+
+      @extend .ts-hr;
+    }
+  }
+
+  &__context {
+    color: palette(text);
+    font-size: 14px;
+    margin: 0 0 0 8px;
+  }
+
+  &__subtitle {
+    font-family: font(sans);
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 18px;
+    color: var(--color_subHeaderText);
+    margin: 15px 0;
+  }
+
+  &--huge {
+    #{$module}__title {
+      font-size: 40px;
+      line-height: 1.5;
+    }
+  }
+
+  &--big {
+    #{$module}__title {
+      font-size: 26px;
+      line-height: 1.5;
+    }
+  }
+
+  &--left {
+    #{$module}__title,
+    #{$module}__subtitle {
+      text-align: left;
+    }
+
+    &:after {
+      margin-left: 0;
+    }
+  }
+
+  &--right {
+    #{$module}__title,
+    #{$module}__subtitle {
+      text-align: right;
+    }
+
+    &:after {
+      margin-right: 0;
+    }
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--white {
+    #{$module}__title {
+      color: palette(text, light);
+    }
+  }
+}

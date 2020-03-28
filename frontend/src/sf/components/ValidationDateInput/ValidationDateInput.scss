@@ -1,0 +1,92 @@
+.ts-ValidationDateInput {
+  $module: &;
+
+  display: flex;
+  flex-direction: column;
+
+  .ts-ValidationInput__label {
+    white-space: nowrap;
+  }
+
+  &__inputs {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    position: relative;
+
+    .ts-ValidationInput {
+      padding-top: 0;
+    }
+  }
+
+  &__altvalues {
+    // specificity
+    &.ts-AltValues {
+      margin-top: 10px;
+
+      @include xsm-up {
+        margin-top: -10px;
+      }
+    }
+  }
+
+  &__date-input {
+    .ts-ValidationInput__field {
+      text-align: center;
+      padding: 0;
+
+      @include placeholder {
+        font-size: 14px;
+      }
+    }
+
+    &:nth-child(2) {
+      .ts-ValidationInput__hint {
+        position: relative;
+        left: -57px;
+      }
+    }
+
+    &:nth-child(3) {
+      .ts-ValidationInput__hint {
+        position: relative;
+        left: -114px;
+      }
+    }
+
+    &--short {
+      margin-right: 10px;
+      width: 47px;
+
+      .ts-ValidationInput__mismatch-info {
+        display: none;
+      }
+    }
+
+    &--long {
+      width: 100px;
+
+      .ts-ValidationInput__field-wrap {
+        position: static;
+
+        @include xsm-up {
+          overflow: visible !important;
+          position: relative;
+        }
+      }
+
+      .ts-ValidationInput__mismatch-info {
+        max-width: 100%;
+        position: absolute;
+        right: 0;
+
+        @include xsm-up {
+          justify-content: flex-start;
+          margin-left: 10px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

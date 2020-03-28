@@ -1,8 +1,22 @@
+
 const express = require('express');
 const app = express();
 const initAPI = require('./api.js');
-const responseTime = require('response-time')
+const responseTime = require('response-time');
 const config = require('./config');
+const cors = require('cors');
+
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions = {
+    origin: config.CORS_WHITELIST.includes(req.header('Origin'))
+  };
+
+  console.log(req.header('Origin'), config.CORS_WHITELIST.includes(req.header('Origin')));
+
+  callback(null, corsOptions)
+}
+
+app.use(cors(corsOptionsDelegate));
 
 initAPI({
   app,

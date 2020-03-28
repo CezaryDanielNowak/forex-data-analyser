@@ -1,0 +1,12 @@
+.ts-GifPlayer {
+  $module: &;
+
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity .1s ease-in-out;
+  }
+}

@@ -1,0 +1,73 @@
+$badge-big-height: 50px;
+$badge-small-height: 30px;
+
+.ts-Badge {
+  $module: &;
+
+  @mixin action-styling() {
+    background: rgba(palette(action-element), .15);
+  }
+
+  @mixin accent-styling() {
+    background: rgba(palette(accent-element, base), .15);
+  }
+
+  @mixin no-theme-styling() {
+    background: palette(background, base);
+  }
+
+  border-radius: 100px;
+  border: none;
+  display: inline-block;
+  font-family: font(sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1px;
+  line-height: 3;
+  min-width: 150px;
+  padding: 0 5px;
+  position: relative;
+  text-transform: uppercase;
+  text-align: center;
+
+  &--theme {
+    &-action {
+      @include action-styling();
+    }
+
+    &-accent {
+      @include accent-styling();
+    }
+
+    &-no-theme {
+      @include no-theme-styling();
+    }
+  }
+
+  &--small {
+    font-size: 11px;
+    height: $badge-small-height;
+    line-height: $badge-small-height;
+    min-width: 120px;
+
+    @include xsm-down() {
+      width: 100%;
+    }
+  }
+
+  &--big {
+    font-size: 13px;
+    height: $badge-big-height;
+    line-height: 54px;
+    padding: 0 20px;
+
+    @include xsm-down() {
+      width: 100%;
+    }
+  }
+
+  &--fluid {
+    min-width: auto;
+    width: 100%;
+  }
+}

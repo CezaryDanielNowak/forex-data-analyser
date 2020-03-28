@@ -1,0 +1,17 @@
+.ts-BooleanRadio {
+  $module: &;
+
+  display: flex;
+  flex-direction: row;
+
+  &__answers {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+  }
+
+  &__radio {
+    margin: 0 !important;
+  }
+}

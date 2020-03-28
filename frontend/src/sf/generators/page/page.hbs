@@ -1,0 +1,17 @@
+import React from 'react';
+import BasePage from 'pages/BasePage';
+import PageTitle from 'components/PageTitle';
+
+export default class {{ name }} extends BasePage {
+  className = 'ts-{{ name }}';
+  title = 'Page:{{ name }}';
+
+  render() {
+    return (
+      <div className={ this.rootcn`ts-container` }>
+        <PageTitle title={ this.title } />
+        { this.props.children }
+      </div>
+    );
+  }
+}

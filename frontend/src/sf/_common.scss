@@ -1,0 +1,87 @@
+@import '../node_modules/normalize.css/normalize';
+@import './z-indexes';
+@import './palettes';
+
+/* stylelint-disable at-rule-no-unknown */
+
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root('::-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-ms-input-placeholder') {
+    @content;
+  }
+}
+
+@mixin autofill {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill {
+    @content;
+  }
+}
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin lvha {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    @content;
+  }
+}
+
+@mixin lvhaf {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin button-transparent {
+  background: none;
+  border: 0;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+}
+
+@mixin disable-autofill {
+  &::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+  }
+}

@@ -1,0 +1,18 @@
+$ownZIndexes: (
+  debugCssBreakpoints: 16777271,
+  dropdownHidden: -1,
+  dropdownVisible: 9,
+  globalLoader: 16777271,
+  selectMenu: 11,
+  selectMenuOuter: 10
+);
+
+@function get-index($zIndexName) {
+  // own indexes
+  @if map-has-key($ownZIndexes, $zIndexName) {
+    @return map-get($ownZIndexes, $zIndexName);
+  }
+
+  // no own z-index, take shared-frontend indexes
+  @return map-get($sharedZIndexes, $zIndexName);
+}

@@ -1,0 +1,93 @@
+.ts-DrivingLicence {
+  $module: &;
+  $border-color: darken(palette(text, gray), 2);
+
+  height: 162px;
+  perspective: 1000px;
+  width: 248px;
+
+  &--is-selfie-mismatched {
+    #{$module}__back,
+    #{$module}__front,
+    #{$module}__placeholder {
+      animation: card-alert-in 1s ease-in 2s forwards;
+    }
+  }
+
+  &--is-back-visible &__wrapper {
+    transform: rotateY(180deg);
+  }
+
+  &__wrapper {
+    height: inherit;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: .5s;
+    width: inherit;
+  }
+
+  &__front,
+  &__back {
+    backface-visibility: hidden;
+    background: palette(background, light);
+    border-radius: 6px;
+    border: 1px solid $border-color;
+    cursor: zoom-in;
+    height: inherit;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: inherit;
+
+    img {
+      height: inherit;
+      width: inherit;
+    }
+  }
+
+  &__front {
+    transform: rotateY(0deg);
+    z-index: 2;
+  }
+
+  &__back {
+    transform: rotateY(180deg);
+  }
+
+  &__flip-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  &__placeholder {
+    background: palette(background, light) url('/img/dl-details-placeholder.svg') no-repeat 50% 95px;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    height: inherit;
+  }
+
+  &__portrait {
+    background: url('/img/dl-portrait-placeholder.svg') no-repeat;
+    background-size: cover;
+    border-radius: 3px;
+    height: 50px;
+    margin: 18px 0 0 17px;
+    overflow: hidden;
+    width: 50px;
+
+    img {
+      height: inherit;
+      width: inherit;
+    }
+  }
+
+  &__dialog-image {
+    margin: -14px 14px 14px;
+
+    img {
+      width: 100%;
+    }
+  }
+}

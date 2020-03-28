@@ -1,0 +1,102 @@
+:root {
+  --color_siteBackground: #{$backgroundLight};
+  --color_headerBackground: #{$backgroundHeader};
+  --color_progressBarLabel: #{$textGrayDark};
+  --color_progressBarCompleted: #{$actionElementBase};
+  --color_progressBarUncompleted: #{$borderLight};
+  --color_pageHeaderText: #{$textBase};
+  --color_subHeaderText: #{$textBase};
+  --color_formFieldBoxBackground: #{$backgroundLight};
+  --color_bodyText: #{$textBase};
+  --color_fieldLabels: #{$textGray};
+  --color_formFieldOutline: #{$borderBase};
+  --color_helpText: #000000;
+
+  --color_errorMessage: #{$backgroundError};
+  --color_errorMessageFieldOutline: #{$backgroundError};
+
+  --color_primaryButtonFill: #{$actionElementBase};
+  --color_primaryButtonOutline: #{$actionElementActive};
+  --color_primaryButtonLabelText: #{$textLight};
+
+  --color_secondaryButtonFill: #FFFFFF;
+  --color_secondaryButtonOutline: #{$actionElementBase};
+  --color_secondaryButonLabelText: #{$actionElementBase};
+
+  --color_primaryLink: #{$textBase};
+  --color_secondaryLink: #000000; // what's that?
+  --color_fontAwesome: #000000;
+  --color_textErrorMessage: #{$textLight};
+  --color_linkErrorMessage: #{$textLight};
+  --color_linkActiveErrorMessage: #{$textLight};
+}
+
+$ownPalettes: (
+  breadcrumbs: (
+    base: $breadCrumbsBase,
+    active: $breadCrumbsActive,
+  ),
+
+  action-element: (
+    base: var(--color_primaryButtonFill),
+    active: var(--color_primaryButtonOutline),
+  ),
+
+  brand: (
+    base: $brandBase,
+  ),
+
+  muted-element: (
+    base: $mutedElementBase,
+    active: $mutedElementActive
+  ),
+
+  text: (
+    light: $textLight,
+    base: var(--color_bodyText),
+    gray: $textGray, // disabled elements, not important text
+    gray-medium: #4C4E54,
+    gray-dark: $textGrayDark,
+    header: $textHeader,
+    footer: $textFooter
+  ),
+
+  background: (
+    light: $backgroundLight,
+    base: $backgroundBase,
+    dark: $backgroundDark,
+    black: #000,
+    gray: $backgroundGray,
+    error: var(--color_errorMessage),
+    blue-gray: #272f44,
+    header: var(--color_headerBackground),
+    footer: var(--color_headerBackground)
+  ),
+
+  error: (
+    base: var(--color_errorMessage)
+  ),
+
+  shadow: (
+    base: rgba(179, 178, 185, .1)
+  ),
+
+  accent-element: (
+    base: $actionElementBase
+  ),
+
+  warning: (
+    base: #c30000
+  ),
+
+  navy: (
+    base: #1d1f29 // used in PageTitle only
+  ),
+
+  // STEPUP's CUSTOM:
+  border: (
+    base:  $borderBase,
+    light: $borderLight,
+  )
+
+);

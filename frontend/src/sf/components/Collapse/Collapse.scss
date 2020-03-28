@@ -1,0 +1,72 @@
+.ts-Collapse {
+  $module: &;
+
+  overflow: visible;
+  position: relative;
+
+  // HACK: This element gets overflow: hidden which prevents dropdowns to work
+  // properly if they're close to the bottom. But only on IE11 (scratches head)
+  // Also, it's accessed this way because it's like school in summertime:
+  // has no class (created by 'react-animate-height')
+  > div {
+    overflow: visible !important;
+  }
+
+  &--collapsed {
+    overflow: hidden;
+
+    > div {
+      cursor: pointer;
+    }
+  }
+
+  &__button {
+    color: palette(text, mid-light);
+    font-size: 12px;
+    font-weight: 300;
+    position: absolute;
+    right: 30px;
+    top: 12px;
+  }
+
+  &__button-caption {
+    cursor: pointer;
+  }
+
+  &__button-icon {
+    margin-left: 10px;
+    // it's not 0deg, because in this case it would rotate clockwise
+    // and we need counter-clockwise
+    transform: rotate(360deg);
+    transform-origin: center;
+    transition: transform .5s ease-in-out;
+
+    &--collapsed {
+      transform: rotate(180deg);
+    }
+
+    .ts-IconButton__icon {
+      margin: 0;
+    }
+  }
+
+  &__wrapper {
+    height: 100%;
+    width: 100%;
+
+    &,
+    &:focus {
+      outline: none;
+    }
+
+    @include lvha {
+      outline: none;
+    }
+
+    &--collapsed {
+      * {
+        cursor: pointer;
+      }
+    }
+  }
+}

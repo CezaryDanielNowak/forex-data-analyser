@@ -1,0 +1,16 @@
+.ts-ProgressBar {
+  $module: &;
+
+  display: inline-block;
+
+  &__progress-ring {
+    display: block;
+
+    &__circle {
+      transition: .35s stroke-dashoffset;
+      // axis compensation
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+  }
+}

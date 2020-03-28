@@ -1,0 +1,34 @@
+.ts-AdminAuthentications {
+  $module: &;
+
+  .ts-PageTitle {
+    display: inline-block;
+    margin-right: 20px;
+
+    @include sm-down {
+      margin-bottom: 0;
+      margin-right: 10px;
+    }
+  }
+
+  //specificity
+  .ts-Button {
+    margin: 0 10px;
+    @include sm-down {
+      margin-right: 0;
+    }
+
+    @include xsm-down {
+      width: 100%;
+    }
+  }
+
+  .ts-ButtonOptions__button {
+    width: auto;
+    padding: 0 20px;
+
+    @include xxsm-up {
+      max-width: 350px;
+    }
+  }
+}

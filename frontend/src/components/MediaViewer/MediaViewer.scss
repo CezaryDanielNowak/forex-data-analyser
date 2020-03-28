@@ -1,0 +1,39 @@
+.ts-MediaViewer {
+  background: palette(background);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: get-index(globalLoader);
+
+  &__viewer-container {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__media-object-container {
+    position: relative;
+  }
+
+  &__media-object {
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0 0 15px 0 palette(gray);
+
+    video {
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+  }
+
+  &__media-object-options-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

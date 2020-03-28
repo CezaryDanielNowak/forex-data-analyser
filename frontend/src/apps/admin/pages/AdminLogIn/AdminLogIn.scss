@@ -1,0 +1,13 @@
+// TODO: create separate admin panel palette; hex color left on purpose
+.ts-AdminLogIn {
+  $module: &;
+
+  &__breadcrumbs {
+    margin-bottom: 50px;
+  }
+
+  &__login-error {
+    color: palette(error);
+    padding: 20px 2px;
+  }
+}

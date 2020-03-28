@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cutive+Mono&display=swap');
+
+$fonts: (
+  slab: 'Georgia, "Times New Roman", serif',
+  sans: 'Montserrat, Arial, Helvetica, sans-serif',
+  mono: '"Cutive Mono", Monaco, Consolas, "Andale Mono", monospace'
+);
+
+@function font($type) {
+  @return unquote(map-get($fonts, $type));
+}

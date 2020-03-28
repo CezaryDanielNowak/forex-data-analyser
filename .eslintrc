@@ -1,7 +1,3 @@
 {
-  "parser": "babel-eslint",
-  "extends": "./src/sf/.eslintrc",
-  "globals": {
-    ENV_VARS: true,
-  }
+
 }

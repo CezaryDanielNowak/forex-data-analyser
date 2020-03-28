@@ -1,0 +1,37 @@
+.ts-Label {
+  $module: &;
+
+  align-items: center;
+  display: inline-flex;
+  justify-content: flex-start;
+
+  &--column {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  &--column-reversed {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+
+  &--reversed {
+    flex-direction: row-reverse;
+  }
+
+  &__label {
+    margin: 0 0 0 8px;
+
+    &--column {
+      margin: 0 0 8px;
+    }
+
+    &--column-reversed {
+      margin: 8px 0 0;
+    }
+
+    &--reversed {
+      margin: 0 8px 0 0;
+    }
+  }
+}

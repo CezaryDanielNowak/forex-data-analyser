@@ -1,0 +1,36 @@
+$sharedZIndexes: (
+  breadcrumbs: 10,
+  captureButton: 1,
+  clearButton: 12,
+  cookieInfo: 1000,
+  dialogHeader: 11,
+  dialog: 1000,
+  dialogCloseButton: 99999,
+  floatingText: 16777271,
+  globalLoader: 16777271,
+  helpContents: 99999,
+  mismatchInfo: 2,
+  photoCaptureButtons: 1,
+  transformInvisible: -1,
+  transformVisible: 1,
+  webcamButton: 999999,
+  webcamButtonBefore: 999998,
+  webcamjsFlashDetection: 1,
+);
+
+@function get-index($zIndexName) {
+  @if map-has-key($ownZIndexes, $zIndexName) {
+    // own z-indexes
+
+    @return map-get($ownZIndexes, $zIndexName);
+  }
+
+  @if map-has-key($sharedZIndexes, $zIndexName) {
+    // shared-frontend z-indexes
+
+    @return map-get($sharedZIndexes, $zIndexName);
+  }
+
+  /* stylelint-disable-next-line at-rule-no-unknown, at-rule-empty-line-before */
+  @error 'Invalid z-index name: `#{$zIndexName}`.';
+}

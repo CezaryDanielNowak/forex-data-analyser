@@ -1,0 +1,113 @@
+// TODO: create separate admin panel palette; hex color left on purpose
+.ts-AdminPageHeader {
+  $module: &;
+
+  &__top-bar {
+    padding: 20px 0 5px;
+    background-color: palette(background, black);
+
+    @include xsm-up {
+      padding: 20px 0;
+    }
+  }
+
+  &__brand-name {
+    color: palette(brand);
+    display: inline;
+    font-size: 24px;
+    margin: 10px;
+
+    @include xsm-up {
+      margin-left: 0;
+    }
+  }
+
+  &__breadcrumbs {
+    background-color: #323232;
+    padding: 10px 0;
+  }
+
+  &__account-actions {
+    color: palette(text, light);
+    float: inherit;
+
+    @include xsm-up {
+      float: right;
+      margin-left: 10px;
+    }
+  }
+
+  &__account-username {
+    color: palette(text, light);
+    display: inline-block;
+    padding-right: 20px;
+  }
+
+  &__account-role {
+    color: palette(text, gray);
+  }
+
+  &__account-change-password {
+    color: palette(text, light);
+    display: inline-block;
+    padding-right: 20px;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+        color: #aaa;
+      }
+    }
+  }
+
+  &__account-logout {
+    color: palette(text, light);
+    display: inline-block;
+
+    .ts-Button {
+      color: palette(text, light);
+    }
+  }
+
+  &__breadcrumbs-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  &__breadcrumbs-item {
+    display: inline-block;
+    color: palette(text, light);
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:focus,
+      &:hover {
+        text-decoration: none;
+        color: #aaa;
+      }
+    }
+
+    &:before {
+      content: '>';
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    &:first-child {
+      &:before {
+        content: '';
+      }
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

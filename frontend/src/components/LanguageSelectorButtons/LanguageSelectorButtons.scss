@@ -1,0 +1,13 @@
+.ts-LanguageSelectorButtons {
+  $module: &;
+
+  clear: both;
+  width: auto;
+  z-index: get-index(breadcrumbs);
+  margin-top: 20px;
+  display: block;
+
+  .ts-Button {
+    width: 100%;
+  }
+}
