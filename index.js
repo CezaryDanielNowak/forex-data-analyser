@@ -7,11 +7,10 @@ const config = require('./config');
 const cors = require('cors');
 
 var corsOptionsDelegate = function (req, callback) {
+  const origin = req.header('Origin') || req.header('origin');
   var corsOptions = {
-    origin: config.CORS_WHITELIST.includes(req.header('Origin'))
+    origin: config.CORS_WHITELIST.includes(origin)
   };
-
-  console.log(req.header('Origin'), config.CORS_WHITELIST.includes(req.header('Origin')));
 
   callback(null, corsOptions)
 }
@@ -30,7 +29,7 @@ app.use(express.static(config.ASSETS_DIR, {
 app.listen(config.SERVER_PORT, () => {
   const printAddr = (addr) => `http${config.HTTPS ? 's' : ''}://${addr}:${config.SERVER_PORT}`;
 
-  let serverStartedMsg = `-------------------\nSERVER STARTED`;
+  let serverStartedMsg = `-------------------\nAPI STARTED`;
 
   serverStartedMsg += '\nDetected network address:';
   getLocalIpAddresses().forEach((addr) => {

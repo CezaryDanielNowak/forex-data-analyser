@@ -2,7 +2,6 @@ import atom from 'atom-js';
 
 import {
   extendedRequestEnd,
-  post,
   get,
 } from 'sf/helpers/request';
 

@@ -7,9 +7,6 @@ const config = {
   HTTPS_DEBUG: false,
   CACHE_PARAM: Date.now().toString(36),
   SHARED_FRONTEND_DIR: path.resolve(__dirname, 'src/sf'),
-  // MULTIPART_DEBUG: save all `multipart/form-data` - use it to debug videos and photos.
-  // This works only whit BACKEND_URL: '',
-  MULTIPART_DEBUG: false,
   // When having trouble with local backend, and you're really frustrated.
   // How to use:
   // - set `BACKEND_URL: '/backend'` in config.local.js

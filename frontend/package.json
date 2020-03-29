@@ -19,7 +19,6 @@
   "devDependencies": {
     "connect-timeout": "1.7.0",
     "gulp-cssnano": "2.1.2",
-    "multer": "1.3.0",
     "node-api-cache-proxy": "0.6.4",
     "protected-require": "1.0.0",
     "uglifyjs-webpack-plugin": "1.2.7",

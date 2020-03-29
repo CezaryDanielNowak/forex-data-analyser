@@ -13,6 +13,13 @@ const copyAndCheckTask = require('./gulp-tasks/copy-and-check.js');
 const { getLint, getLintWatch } = require('./gulp-tasks/lint.js');
 
 
+process.on('SIGINT', function () {
+  const pid = process.pid;
+  const kill = require('tree-kill');
+
+  kill(pid, 'SIGKILL');
+});
+
 const WATCH_OPTIONS = {
   interval: 600,
   ignoreInitial: true,
@@ -77,6 +84,9 @@ gulp.task('webpack', (callback) => require('./gulp-tasks/webpack')({
 gulp.task('webpack:watch', require('./gulp-tasks/webpack')({
   watch: true,
   callback: () => {
+
+
+
     // run watch at the end to get results faster
     gulp.start('lint:watch');
   },
@@ -159,9 +169,38 @@ gulp.task('clean', () => {
   });
 });
 
+
+
+gulp.task('run-api', () => {
+  const { exec } = require('child_process');
+
+  const parseStdout = (_data) => {
+    const data = _data.toString().split('\n');
+
+
+    return data.map((line) => {
+      return `[API] ${line}`;
+    }).join('\n');
+  };
+
+  const ls = exec(`cd ${path.resolve(config.BASE_DIR, '../')} && make start-api`, (error, stdout, stderr) => {});
+
+  ls.stdout.on('data', function (data) {
+    console.log(parseStdout(data));
+  });
+
+  ls.stderr.on('data', (data) => {
+    console.error(parseStdout(data));
+  });
+
+  ls.on('exit', (code) => {
+    console.log('EXIT API ', code);
+  });
+});
+
 // === PUBLIC ===
 gulp.task('watch', [
-  'clean', 'webpack:watch', 'copy-and-check-task',
+  'run-api', 'clean', 'webpack:watch', 'copy-and-check-task',
 ], () => {
   gulp.start('copy:watch');
   gulp.start('server');

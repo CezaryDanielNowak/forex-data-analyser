@@ -89,9 +89,9 @@ module.exports = (userWebpackConfig) => {
     {
       mode: appConfig.ENV.substr(0, 5) === 'local' ? 'development' : 'production',
       context: appConfig.BASE_DIR,
-      performance: {
-        hints: 'warning',
-      },
+      // performance: {
+      //   hints: 'warning',
+      // },
       devtool: appConfig.enableSourceMapsJS ? 'source-map' : false,
       // To reduce file size
       node: {
@@ -109,13 +109,13 @@ module.exports = (userWebpackConfig) => {
           {
             // every js or jsx file but *.test.js and *.test.jsx
             test: /^(?!.*\.test(\.js)$).*(?:\.js)$/,
-            loader: 'babel-loader?cacheDirectory',
+            loader: 'babel-loader?cacheDirectory=true',
             include: [
               appConfig.SOURCE_DIR,
-              appConfig.SHARED_FRONTEND_DIR,
             ],
             exclude: [
               /node_modules/,
+              `${appConfig.SHARED_FRONTEND_DIR}/packages`,
             ],
           },
           {
@@ -154,11 +154,9 @@ module.exports = (userWebpackConfig) => {
         modules: [
           appConfig.SOURCE_DIR,
           `${appConfig.SHARED_FRONTEND_DIR}/packages`,
-          `${appConfig.BASE_DIR}/node_modules`,
-          'tmp',
+          `${appConfig.BASE_DIR}/node_modules`
         ],
         alias: {
-          'sf/components/CropImage': 'sf/components/CropImage/CropImageDummy',
           'ie': 'component-ie', // https://github.com/johntron/superagent-no-cache/issues/11
         },
       },

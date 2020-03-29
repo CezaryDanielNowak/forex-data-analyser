@@ -4,15 +4,11 @@
 const colors = require('colors');
 const config = require('../../../config');
 const express = require('express');
-const figlet = require('figlet');
-const multer = require('multer');
 const os = require('os');
 const serverRendering = require('./server-rendering.js');
 const timeout = require('connect-timeout');
 const first = require('lodash/first');
 const { getAllRoutes } = require('./server-rendering');
-
-express.static.mime.define({ 'application/wasm': ['wasm'] });
 
 const app = express();
 
@@ -104,21 +100,6 @@ module.exports = () => {
     app.use(timeout(config.DEFAULT_REQUEST_TIMEOUT));
 
     app.use(haltOnTimeout);
-
-    if (config.MULTIPART_DEBUG) {
-      const storage = multer.diskStorage({
-        destination: `${config.BASE_DIR}/tmp`,
-        filename: function (req, file, cb) {
-          const ext = file.originalname.match(/\..*$/);
-          cb(null, `${file.fieldname}-${Date.now()}${ext ? ext[0] : '.unknown'}`);
-        },
-      });
-
-      const upload = multer({ storage: storage });
-      app.use(upload.any(), (req, res, next) => {
-        next();
-      });
-    }
 
     if (config.ENV === 'local' && config.DEBUG_PROXY_BACKEND_URL) {
       const APICacheProxy = require('node-api-cache-proxy');
