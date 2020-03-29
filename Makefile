@@ -5,3 +5,7 @@ start-api:
 .PHONY: start
 start:
 	cd frontend && make start
+
+.PHONY: build
+start:
+	cd frontend && make build
