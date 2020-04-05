@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import AltValues from 'sf/components/AltValues';
 import ValidationInput from 'sf/components/ValidationInput';
 import BaseComponent from 'components/BaseComponent';
-import { SEC } from 'sf/models/date';
+import { SEC } from 'sf/helpers/date';
 
 const FIELDS = [
   'day',

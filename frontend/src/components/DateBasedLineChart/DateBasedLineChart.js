@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BaseComponent from 'components/BaseComponent';
-import { getScript } from 'sf/helpers/domHelper';
 
 export default class DateBasedLineChart extends BaseComponent {
   className = 'ts-DateBasedLineChart';
@@ -9,74 +8,96 @@ export default class DateBasedLineChart extends BaseComponent {
   static propTypes = {
     width: PropTypes.any,
     height: PropTypes.any,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+      })
+    ),
   };
 
   static defaultProps = {
     width: '100%',
-    height: '500px'
+    height: '500px',
   };
 
   componentDidMount() {
     this.runChart();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data) {
+      this.setTimeout(() => {
+        // update am4charts just on props update
+        this.runChart();
+      }, 100);
+    }
+  }
+
   runChart() {
-    am4core.ready(function() {
+    /*
+    sample data:
+
+    [
+      {
+        "date": "2019-11-07T12:04:02.289Z",
+        "value": -36
+      },
+      {
+        "date": "2019-11-08T12:04:02.289Z",
+        "value": -26
+      },
+      {
+        "date": "2019-11-09T12:04:02.289Z",
+        "value": -22
+      },
+      ...
+    ]
+     */
+    if (!this.props.data) {
+      return;
+    }
+
+    am4core.ready(() => {
 
       // Themes begin
       // am4core.useTheme(am4themes_animated);
       // Themes end
 
       // Create chart instance
-      var chart = am4core.create("chartdiv", am4charts.XYChart);
+      const chart = am4core.create('chartdiv', am4charts.XYChart);
 
       // Add data
-      chart.data = generatechartData();
-      function generatechartData() {
-        var chartData = [];
-        var firstDate = new Date();
-        firstDate.setDate( firstDate.getDate() - 150 );
-        var visits = -40;
-        var b = 0.6;
-        for ( var i = 0; i < 150; i++ ) {
-          // we create date objects here. In your data, you can have date strings
-          // and then set format of your dates using chart.dataDateFormat property,
-          // however when possible, use date objects, as this will speed up chart rendering.
-          var newDate = new Date( firstDate );
-          newDate.setDate( newDate.getDate() + i );
-          if(i > 80){
-              b = 0.4;
-          }
-          visits += Math.round((Math.random()<b?1:-1)*Math.random()*10);
+      chart.data = this.props.data;
 
-          chartData.push( {
-            date: newDate,
-            visits: visits
-          } );
-        }
-        return chartData;
-      }
+      console.log('chart.data', chart.data);
 
       // Create axes
-      var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.startLocation = 0.5;
-      dateAxis.endLocation = 0.5;
+      const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+      // dateAxis.startLocation = 0.5;
+      // dateAxis.endLocation = 0.5;
+
+      dateAxis.baseInterval = {
+        timeUnit: 'minute',
+        count: 1
+      };
 
       // Create value axis
-      var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
       // Create series
-      var series = chart.series.push(new am4charts.LineSeries());
-      series.dataFields.valueY = "visits";
-      series.dataFields.dateX = "date";
+      const series = chart.series.push(new am4charts.LineSeries());
+      series.dataFields.valueY = 'value';
+      series.dataFields.dateX = 'date';
       series.strokeWidth = 3;
-      series.tooltipText = "{valueY.value}";
+      series.tooltipText = '{valueY.value}';
       series.fillOpacity = 0.1;
 
       // Create a range to change stroke for values below 0
-      var range = valueAxis.createSeriesRange(series);
+      const range = valueAxis.createSeriesRange(series);
       range.value = 0;
-      range.endValue = -1000;
+      // range.endValue = -1000;
+      range.endValue = -chart.data.length;
       range.contents.stroke = chart.colors.getIndex(4);
       range.contents.fill = range.contents.stroke;
       range.contents.strokeOpacity = 0.7;
@@ -88,17 +109,15 @@ export default class DateBasedLineChart extends BaseComponent {
       chart.scrollbarX = new am4core.Scrollbar();
 
       series.tooltip.getFillFromObject = false;
-      series.tooltip.adapter.add("x", (x, target)=>{
-          if(series.tooltip.tooltipDataItem.valueY < 0){
-              series.tooltip.background.fill = chart.colors.getIndex(4);
-          }
-          else{
-              series.tooltip.background.fill = chart.colors.getIndex(0);
-          }
-          return x;
-      })
-
-    }); // end am4core.ready()
+      series.tooltip.adapter.add('x', (x, target) => {
+        if (series.tooltip.tooltipDataItem.valueY < 0) {
+          series.tooltip.background.fill = chart.colors.getIndex(4);
+        } else {
+          series.tooltip.background.fill = chart.colors.getIndex(0);
+        }
+        return x;
+      });
+    });
   }
 
 

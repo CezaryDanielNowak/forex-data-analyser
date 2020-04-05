@@ -84,13 +84,6 @@ export const request = (method, url, authorizationMethod) => {
 };
 
 export const postMultipart = (url, authorizationMethod) => {
-  const uploadTime = [];
-  const processTime = [];
-  const connectingTIme = [];
-  const sendingTime = [];
-  const waitingTime = [];
-  let isConnected = false;
-
   const auth = getAuthorizationConfig(authorizationMethod);
   const computedURL = auth.url('postMultipart', getBackendUrl(url));
 
@@ -100,56 +93,13 @@ export const postMultipart = (url, authorizationMethod) => {
     .post(computedURL)
     .set('Accept', 'application/json');
 
-  connectingTIme.push(Date.now());
   req.on('progress', (e) => {
     if (Number.isFinite(e.percent) && e.percent < 100) {
-      sendingTime.push(Date.now());
-      uploadTime.push(Date.now());
-      if (!isConnected) {
-        connectingTIme.push(Date.now());
-        isConnected = true;
-      }
       mediator.publish('GlobalLoader--setMessage', `${UPLOADING} ${parseInt(e.percent, 10)}%`);
-      uploadTime.push(Date.now());
     } else {
-      waitingTime.push(Date.now());
       mediator.publish('GlobalLoader--setMessage', PROCESSING);
-      if (e.direction === 'upload' && e.percent === 100) {
-        uploadTime.push(Date.now());
-        passMethodHandler(
-          req,
-          getParameter(url, '_upload_time'),
-          computeTime(uploadTime)
-        );
-        sendingTime.push(Date.now());
-      }
-      processTime.push(Date.now());
-
-      passMethodHandler(
-        req,
-        getParameter(url, '_processing_time'),
-        computeTime(processTime)
-      );
-      waitingTime.push(Date.now());
     }
 
-    passMethodHandler(
-      req,
-      getParameter(url, '_connecting_time'),
-      computeTime(connectingTIme)
-    );
-
-    passMethodHandler(
-      req,
-      getParameter(url, '_sending_time'),
-      computeTime(sendingTime)
-    );
-
-    passMethodHandler(
-      req,
-      getParameter(url, '_response_awaiting_time'),
-      computeTime(waitingTime)
-    );
   });
 
   auth.req('postMultipart', url, req);
@@ -212,24 +162,6 @@ export const errorHandler = (err, res) => {
       isValid: false,
     });
   }
-};
-
-export const requestEnd = (resolve, reject, customErrorHandler = errorHandler) => {
-  // eslint-disable-next-line no-console
-  console.warn('requestEnd is deprecated. Please use extendedRequestEnd instead.');
-
-  return (err, res) => {
-    if (err) {
-      // NOTE: If you want to use your own error handling,
-      // invoke `requestEnd` with `customErrorHandler` set to `false`
-      if (customErrorHandler) {
-        customErrorHandler(err, res);
-      }
-      reject(res.body && (res.body.error_code || res.body.data || res.body.status_message) || err);
-    } else {
-      resolve(res.body.data);
-    }
-  };
 };
 
 const INVALID_RESPONSE_ERROR = {
@@ -467,24 +399,4 @@ function getAuthorizationConfig(authorizationMethod) {
     url: (_, url) => url,
     req: (_1, _2, req) => req,
   };
-}
-
-function computeTime(methodTime = []) {
-  return last(methodTime) - first(methodTime);
-}
-
-function passMethodHandler(req, methodName, methodValue) {
-  req[methodName] = methodValue;
-  return req[methodName];
-}
-
-function getParameter(paramUrl, suffix) {
-  /*
-   *Function that returns a parameter
-   @param {string} paramUrl - post url
-   @param {string} suffix - added suffix to post url
-   *
-   @example getParameter('/backend/video', '_upload_time') // 'backend_video_upload_time'
-  */
-  return `${getBackendUrl(paramUrl).split('/').slice(2, -1).join('_')}${suffix}`;
 }

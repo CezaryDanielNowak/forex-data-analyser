@@ -4,5 +4,6 @@
   "globals": {
     ENV_VARS: true,
     am4core: true,
+    am4charts: true,
   }
 }

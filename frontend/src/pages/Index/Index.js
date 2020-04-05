@@ -3,9 +3,7 @@ import {
   PAGE_INDEX_TITLE,
 } from 'l10n';
 import BasePage from 'pages/BasePage';
-import Button from 'sf/components/Button';
-import { ROUTES } from 'constants';
-import DateBasedLineChart from 'components/DateBasedLineChart';
+import RatioCompareChart from 'components/RatioCompareChart';
 import api from 'models/api';
 
 global.api = api;
@@ -23,8 +21,7 @@ export default class Index extends BasePage {
       <div className={ this.rootcn`` }>
         <div className="ts-container">
           <div className={ this.cn`__content` }>
-
-            <DateBasedLineChart />
+            <RatioCompareChart sources={ [ 'GER30Cash_M1.CSV', 'POL20Cash_M1.CSV' ] } />
           </div>
         </div>
       </div>

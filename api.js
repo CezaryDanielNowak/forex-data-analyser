@@ -9,6 +9,23 @@ const cache = {
   filePaths: {}
 };
 
+function prepareResponse(err, responseData) {
+  if (err) {
+    if (Object.hasOwnProperty.call(err, 'error_code')) {
+      return err;
+    }
+    return {
+      error_code: err.name,
+      status_message: `${err}`,
+      data: responseData,
+    }
+  }
+
+  return {
+    data: responseData
+  }
+}
+
 module.exports = ({ app }) => {
 
   app.get('/', (req, res) => res.send('Hello World!'));
@@ -17,7 +34,7 @@ module.exports = ({ app }) => {
     const filePaths = await getCSVFilePaths(config.DATA_DIR);
     const output = filePaths.map((fileName) => fileName.split('/').pop());
 
-    res.json(output);
+    res.json(prepareResponse(null, output));
   });
 
 
@@ -37,7 +54,7 @@ module.exports = ({ app }) => {
     if (!filePath) {
       return res
         .status(400)
-        .json({ error_code: 'INVALID_FILE_NAME' });
+        .json(prepareResponse({ error_code: 'INVALID_FILE_NAME' }));
     }
 
     const dataFromCSV = await readCSV(filePath);
@@ -48,7 +65,7 @@ module.exports = ({ app }) => {
     }
 
     return res
-      .json(filteredDataFromCSV);
+      .json(prepareResponse(null, filteredDataFromCSV));
   });
 
 
@@ -71,7 +88,7 @@ module.exports = ({ app }) => {
     if (filePaths.length !== 2) {
       return res
         .status(400)
-        .json({ error_code: 'INVALID_FILE_NAME' });
+        .json(prepareResponse({ error_code: 'INVALID_FILE_NAME' }));
     }
 
     const dataFromCSV = await Promise.all(filePaths.map((filePath) => readCSV(filePath)));
@@ -85,7 +102,7 @@ module.exports = ({ app }) => {
     }
 
     return res
-      .json(filteredDataFromCSV);
+      .json(prepareResponse(null, filteredDataFromCSV));
   });
 }
 

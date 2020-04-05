@@ -19,6 +19,7 @@ export default class MultipleInput extends BaseComponent {
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
+    max: PropTypes.number,
   };
 
   static defaultProps = {
@@ -31,6 +32,7 @@ export default class MultipleInput extends BaseComponent {
     value: [],
     onBlur: noop,
     onFocus: noop,
+    max: Infinity,
   };
 
   state = {};
@@ -41,13 +43,19 @@ export default class MultipleInput extends BaseComponent {
   };
 
   handleChange = (newValues) => {
+    if (newValues.length > this.props.max) {
+      return;
+    }
+
     this.setState(
       { values: newValues },
       () => {
         const [context, field] = this.props.stateLink;
         context.setState({
           [field]: newValues.map(({ value }) => value),
-        }, this.props.onChange);
+        }, () => {
+          this.props.onChange(newValues);
+        });
       },
     );
   };

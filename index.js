@@ -1,8 +1,7 @@
-
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const initAPI = require('./api.js');
-const responseTime = require('response-time');
 const config = require('./config');
 const cors = require('cors');
 
@@ -16,6 +15,7 @@ var corsOptionsDelegate = function (req, callback) {
 }
 
 app.use(cors(corsOptionsDelegate));
+app.use(compression({}));
 
 initAPI({
   app,

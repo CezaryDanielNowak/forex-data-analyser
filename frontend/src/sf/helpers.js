@@ -18,7 +18,7 @@ import randomString from 'randomstring';
 import { browserHistory } from 'react-router';
 
 import { createAndClickAnchor } from 'sf/helpers/domHelper';
-import { YEAR } from 'sf/models/date';
+import { YEAR } from 'sf/helpers/date';
 
 export const mediator = is.isFunction(Mediator) ?
   new Mediator() :

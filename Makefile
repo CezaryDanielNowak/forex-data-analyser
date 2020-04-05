@@ -4,7 +4,7 @@ start-api:
 
 .PHONY: start
 start:
-	cd frontend && make start
+	echo "run make start from frontend directory!"
 
 .PHONY: build
 start:
