@@ -82,6 +82,19 @@ export default class DateBasedLineChart extends BaseComponent {
         count: 1
       };
 
+/*
+dateAxis.groupIntervals.setAll([
+  { timeUnit: "month", count: 1 },
+  { timeUnit: "year", count: 1 },
+  { timeUnit: "year", count: 10 }
+]);
+ */
+
+      // https://www.amcharts.com/docs/v4/concepts/axes/date-axis/#Dynamic_data_item_grouping
+      dateAxis.groupData = true;
+      dateAxis.groupCount = 100;
+
+
       // Create value axis
       const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
