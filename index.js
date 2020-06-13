@@ -36,6 +36,10 @@ app.listen(config.SERVER_PORT, () => {
     serverStartedMsg += `\n${printAddr(addr)}`;
   });
   console.log(serverStartedMsg);
+
+
+
+  console.log('tracked directory: ', config.DATA_DIR);
 });
 
 

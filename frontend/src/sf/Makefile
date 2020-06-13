@@ -40,7 +40,6 @@ start:
 
 .PHONY: build
 build:
-	make check-compatibilty
 	$(GULP) build --env=$(ENV) --brand=$(BRAND) --version=$(VERSION) --test_runner=$(TEST_RUNNER)
 
 .PHONY: server

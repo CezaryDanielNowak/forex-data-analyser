@@ -23,19 +23,25 @@ export default class RatioCompareChart extends BaseComponent {
     onDataSourceChange: () => {},
   };
 
-  state = {
-    data: [],
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [],
+      sources: props.sources,
+    };
+  }
 
   componentDidMount() {
-    this.getDataForSources(this.props.sources);
+    this.getDataForSources(this.state.sources);
   }
 
   handleDataSourceChange = (sourcesArr) => {
+    const flatSources = sourcesArr.map((source) => source.value);
+    this.setState({ sources: flatSources });
+    this.getDataForSources(flatSources);
+
     this.props.onDataSourceChange(sourcesArr);
-    this.getDataForSources(
-      sourcesArr.map((source) => source.value)
-    );
   }
 
   getDataForSources(sources) {
@@ -52,12 +58,12 @@ export default class RatioCompareChart extends BaseComponent {
           .map((candleData, i) => {
 
             return {
-              "date": stringToDate(candleData.date, candleData.time),
-              "value": ((ratioArray[i] - ratioMedian) / ratioMedian) * 100, // mediam becomes 0. value in %
+              'date': stringToDate(candleData.date, candleData.time),
+              'value': ((ratioArray[i] - ratioMedian) / ratioMedian) * 100, // mediam becomes 0. value in %
             };
           });
 
-          this.setState({ data });
+        this.setState({ data });
       })
       .catch((err) => {
         console.log('err', err);
@@ -69,8 +75,10 @@ export default class RatioCompareChart extends BaseComponent {
       <div
         className={ this.rootcn() }
       >
+        <h2>{ this.state.sources.join('/').replace(/\.CSV/g, '') }</h2>
         <DataSourceSelector min={ 2 } max={ 2 } onChange={ this.handleDataSourceChange } />
         <DateBasedLineChart
+          valueAxisLabel="Percentage deviation from median ratio"
           width={ this.props.width }
           height={ this.props.height }
           data={ this.state.data }

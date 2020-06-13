@@ -14,6 +14,7 @@ export default class DateBasedLineChart extends BaseComponent {
         value: PropTypes.number.isRequired,
       })
     ),
+    valueAxisLabel: null,
   };
 
   static defaultProps = {
@@ -88,15 +89,28 @@ dateAxis.groupIntervals.setAll([
   { timeUnit: "year", count: 1 },
   { timeUnit: "year", count: 10 }
 ]);
+
+// https://www.amcharts.com/docs/v4/concepts/performance/
+
+am4core.options.minPolylineStep = 5;
+processTimeout = 1 // TODO
+sequencedAnimation = false // TODO
+zoomOutOnDataUpdate = false // TODO?
+accessible = false
+
+am4core.options.queue = true; // init charts one-by-one
+am4core.options.onlyShowOnViewport = true;
+
  */
 
       // https://www.amcharts.com/docs/v4/concepts/axes/date-axis/#Dynamic_data_item_grouping
       dateAxis.groupData = true;
-      dateAxis.groupCount = 100;
-
+      dateAxis.groupCount = 2000; // maximum number of data items we allow to be displayed at a time
 
       // Create value axis
       const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxis.title.text = this.props.valueAxisLabel;
+      valueAxis.title.fontWeight = 'bold';
 
       // Create series
       const series = chart.series.push(new am4charts.LineSeries());
@@ -122,6 +136,10 @@ dateAxis.groupIntervals.setAll([
       chart.scrollbarX = new am4core.Scrollbar();
 
       series.tooltip.getFillFromObject = false;
+      series.tooltipText = "{dateX.formatDate('yyyy-MM-dd HH:mm:ss')}";
+
+
+
       series.tooltip.adapter.add('x', (x, target) => {
         if (series.tooltip.tooltipDataItem.valueY < 0) {
           series.tooltip.background.fill = chart.colors.getIndex(4);

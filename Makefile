@@ -7,5 +7,5 @@ start:
 	echo "run make start from frontend directory!"
 
 .PHONY: build
-start:
+build:
 	cd frontend && make build
