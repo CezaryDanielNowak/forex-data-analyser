@@ -55,11 +55,12 @@ export default class RatioCompareChart extends BaseComponent {
         const ratioMedian = median(ratioArray);
 
         const data = response[0]
-          .map((candleData, i) => {
-
+          .map(({ date, time }, i) => {
             return {
-              'date': stringToDate(candleData.date, candleData.time),
+              'date': stringToDate(date, time),
               'value': ((ratioArray[i] - ratioMedian) / ratioMedian) * 100, // mediam becomes 0. value in %
+              'priceA': response[0][i].close,
+              'priceB': response[1][i].close,
             };
           });
 
@@ -82,6 +83,10 @@ export default class RatioCompareChart extends BaseComponent {
           width={ this.props.width }
           height={ this.props.height }
           data={ this.state.data }
+          extraAxis={ [
+            { id: 'priceA', label: this.state.sources[0].replace('_M1.CSV', '') },
+            { id: 'priceB', label: this.state.sources[1].replace('_M1.CSV', '') }
+          ] }
         />
       </div>
     );

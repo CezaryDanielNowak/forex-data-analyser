@@ -130,6 +130,16 @@ function setCache(functionName, _args, data) {
   }, config.CACHE_TIMEOUT);
 }
 
+function parseRowData(row) {
+  row.open *= 1;
+  row.high *= 1;
+  row.low *= 1;
+  row.close *= 1;
+  row.tick_volume *= 1;
+
+  return row;
+}
+
 function readCSV(filePath) {
   const argsForCache = arguments;
   const dataFromCache = getCache('readCSV', argsForCache);
@@ -140,7 +150,7 @@ function readCSV(filePath) {
   return new Promise((resolve, reject) => {
     fs.createReadStream(filePath)
       .pipe(csv(['date', 'time', 'open', 'high', 'low', 'close', 'tick_volume']))
-      .on('data', (row) => results.push(row))
+      .on('data', (row) => results.push(parseRowData(row)))
       .on('end', () => {
         setCache('readCSV', argsForCache, results);
 
