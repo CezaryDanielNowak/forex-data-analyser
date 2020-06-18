@@ -16,7 +16,7 @@ function prepareResponse(err, responseData) {
     }
     return {
       error_code: err.name,
-      status_message: `${err}`,
+      status_message: err instanceof Error ? `${err.name}: ${err.message}` : `${err}`,
       data: responseData,
     }
   }
@@ -80,6 +80,8 @@ module.exports = ({ app }) => {
       dateFrom,
       dateTo,
     } = req.query;
+    let dataFromCSV;
+
     const allFilePaths = await getCSVFilePaths(config.DATA_DIR);
     const filePaths = source.map((sourceFileName) => {
       return getFilePathFromFileName(sourceFileName, allFilePaths);
@@ -91,7 +93,13 @@ module.exports = ({ app }) => {
         .json(prepareResponse({ error_code: 'INVALID_FILE_NAME' }));
     }
 
-    const dataFromCSV = await Promise.all(filePaths.map((filePath) => readCSV(filePath)));
+    try {
+      dataFromCSV = await Promise.all(filePaths.map((filePath) => readCSV(filePath)));
+    } catch(e) {
+      return res
+        .status(400)
+        .json(prepareResponse({ error_code: 'INVALID_CSV_FILE_CONTENT', status_message: e }));
+    }
 
     let filteredDataFromCSV = dataFromCSV;
 
@@ -172,13 +180,16 @@ function selectByDateRange(arr, from, to, fieldName = 'date') {
   const result = [];
   for(let i = 0, max = arr.length; i < max; ++i) {
     if (arr[i][fieldName] >= from && arr[i][fieldName] <= to) {
-       result.push(arr[i]);
+      result.push(arr[i]);
     }
   }
   return result;
 }
 
-function intersect(a, b) { // NOTE: if there are more than two arrays, it will work for two first
+function intersect(a, b) {
+  if (arguments.length !== 2) {
+    throw new Error('intersect requires 2 parameters. Handling more is not implemented yet.');
+  }
   var setA = new Set(a);
   var setB = new Set(b);
   var intersection = new Set([...setA].filter(x => setB.has(x)));

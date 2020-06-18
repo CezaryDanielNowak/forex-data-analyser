@@ -60,18 +60,15 @@ export default class DateBasedLineChart extends BaseComponent {
     }
 
     am4core.ready(() => {
-
       // Themes begin
       // am4core.useTheme(am4themes_animated);
       // Themes end
 
       // Create chart instance
-      const chart = am4core.create('chartdiv', am4charts.XYChart);
+      const chart = am4core.create(`${this.className}_${this.componentId}`, am4charts.XYChart);
 
       // Add data
       chart.data = this.props.data;
-
-      console.log('chart.data', chart.data);
 
       // Create axes
       const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -159,7 +156,7 @@ am4core.options.onlyShowOnViewport = true;
         className={ this.rootcn() }
       >
         <div
-          id="chartdiv"
+          id={ `${this.className}_${this.componentId}` }
           style={ {
             width: this.props.width,
             height: this.props.height,

@@ -1,6 +1,7 @@
 import React from 'react';
 import BaseComponent from 'components/BaseComponent';
 import IconButton from 'sf/components/IconButton';
+import MenuHamburger from 'components/MenuHamburger';
 import { ROUTES } from 'constants';
 
 export default class PageHeader extends BaseComponent {
@@ -31,6 +32,8 @@ export default class PageHeader extends BaseComponent {
           type="home"
         />
         <p className={ this.cn`__text` }>{ this.state.title }</p>
+
+        <MenuHamburger />
       </div>
     );
   }
