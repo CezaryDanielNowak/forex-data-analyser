@@ -25,15 +25,15 @@ dateHelper.MONTH = dateHelper.YEAR / 12;
 
 dateHelper.toLocaleISOString = (date, offsetMinutes = -this.getTimezoneOffset()) => {
   const offsetMs = offsetMinutes * dateHelper.MIN;
-  const pad = function(num) {
+  const pad = function (num) {
     const norm = Math.floor(Math.abs(num));
     return (norm < 10 ? '0' : '') + norm;
   };
   const localISOTime = (new Date(Date.now() + offsetMs)).toISOString().slice(0, -1);
 
   const dif = offsetMinutes >= 0 ? '+' : '-';
-  return localISOTime + dif + pad(offsetMinutes / 60) + ':' + pad(offsetMinutes % 60);
-}
+  return `${localISOTime}${dif}${pad(offsetMinutes / 60)}:${pad(offsetMinutes % 60)}`;
+};
 
 /**
  * converts Date object to YYYY.MM.DD string
@@ -46,7 +46,7 @@ dateHelper.dateToString = (date) => {
     return date;
   }
 
-  return dateHelper.toLocaleISOString(date, 120).substr(0, 10).replace(/\-/g, '.'); // 120 = GMT+0200
+  return dateHelper.toLocaleISOString(date, 120).substr(0, 10).replace(/-/g, '.'); // 120 = GMT+0200
 };
 
 /**

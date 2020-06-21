@@ -1,5 +1,3 @@
-import first from 'lodash/first';
-import last from 'lodash/last';
 import sf from 'sf';
 
 import { mediator, sentryLog } from 'sf/helpers';
@@ -99,7 +97,6 @@ export const postMultipart = (url, authorizationMethod) => {
     } else {
       mediator.publish('GlobalLoader--setMessage', PROCESSING);
     }
-
   });
 
   auth.req('postMultipart', url, req);

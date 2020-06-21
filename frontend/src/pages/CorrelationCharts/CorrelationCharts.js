@@ -1,6 +1,5 @@
 import React from 'react';
 import BasePage from 'pages/BasePage';
-import PageTitle from 'components/PageTitle';
 import RatioCompareChart from 'components/RatioCompareChart';
 
 export default class CorrelationCharts extends BasePage {
@@ -10,33 +9,8 @@ export default class CorrelationCharts extends BasePage {
   render() {
     return (
       <div className={ this.rootcn`ts-container` }>
-        <RatioCompareChart sources={ [ 'GER30Cash_M1.CSV', 'POL20Cash_M1.CSV' ] } />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <RatioCompareChart sources={ ['GER30Cash_M1.CSV', 'POL20Cash_M1.CSV'] } />
       </div>
     );
   }
 }
-
-        // <RatioCompareChart sources={ [ 'EU50Cash_M1.CSV', 'US100Cash_M1.CSV' ] } />

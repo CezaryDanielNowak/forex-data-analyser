@@ -54,8 +54,14 @@ export default class RatioCompareChart extends BaseComponent {
 
         const ratioMedian = median(ratioArray);
 
+        console.log('1', response[0].length);
+        console.log('2', response[1].length);
+
         const data = response[0]
           .map(({ date, time }, i) => {
+            if(response[0][i].date !== response[1][i].date) {
+              console.warn('!!!!!!!!!!!!!!', response[0][i].date, response[1][i].date)
+            }
             return {
               'date': stringToDate(date, time),
               'value': ((ratioArray[i] - ratioMedian) / ratioMedian) * 100, // mediam becomes 0. value in %
@@ -79,13 +85,13 @@ export default class RatioCompareChart extends BaseComponent {
         <h2>{ this.state.sources.join('/').replace(/\.CSV/g, '') }</h2>
         <DataSourceSelector min={ 2 } max={ 2 } onChange={ this.handleDataSourceChange } />
         <DateBasedLineChart
-          valueAxisLabel="Percentage deviation from median ratio"
+          valueLabel="Percentage deviation from median ratio"
           width={ this.props.width }
           height={ this.props.height }
           data={ this.state.data }
           extraAxis={ [
-            { id: 'priceA', label: this.state.sources[0].replace('_M1.CSV', '') },
-            { id: 'priceB', label: this.state.sources[1].replace('_M1.CSV', '') }
+            { id: 'priceA', label: this.state.sources[0].replace('.CSV', '') },
+            { id: 'priceB', label: this.state.sources[1].replace('.CSV', '') }
           ] }
         />
       </div>

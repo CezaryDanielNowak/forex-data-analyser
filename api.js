@@ -1,13 +1,10 @@
 
 const glob = require('glob');
 const _ = require('lodash');
-const csv = require('csv-parser');
-const fs = require('fs');
-const config = require('./config');
 
-const cache = {
-  filePaths: {}
-};
+const config = require('./config');
+const { getCache, setCache } = require('./helpers/cache');
+const { readCSV } = require('./helpers/csv');
 
 function prepareResponse(err, responseData) {
   if (err) {
@@ -37,7 +34,6 @@ module.exports = ({ app }) => {
     res.json(prepareResponse(null, output));
   });
 
-
   // /api/get_data?source=POL20Cash_M1.CSV&dateFrom=2020.03.20&dateTo=2020.03.25
   app.get('/api/get_data', async (req, res) => {
     // params:
@@ -50,6 +46,7 @@ module.exports = ({ app }) => {
       dateTo,
     } = req.query;
     const filePath = getFilePathFromFileName(source, await getCSVFilePaths(config.DATA_DIR));
+    let dataFromCSV;
 
     if (!filePath) {
       return res
@@ -57,7 +54,14 @@ module.exports = ({ app }) => {
         .json(prepareResponse({ error_code: 'INVALID_FILE_NAME' }));
     }
 
-    const dataFromCSV = await readCSV(filePath);
+    try {
+      dataFromCSV = await readCSV(filePath);
+    } catch(e) {
+      console.error(e);
+      return res
+        .status(400)
+        .json(prepareResponse({ error_code: 'INVALID_CSV_FILE_CONTENT', status_message: e }));
+    }
     let filteredDataFromCSV = dataFromCSV;
 
     if (dateFrom && dateTo) {
@@ -96,7 +100,7 @@ module.exports = ({ app }) => {
     try {
       dataFromCSV = await Promise.all(filePaths.map((filePath) => readCSV(filePath)));
     } catch(e) {
-      return res
+      return resfilePaths
         .status(400)
         .json(prepareResponse({ error_code: 'INVALID_CSV_FILE_CONTENT', status_message: e }));
     }
@@ -109,57 +113,12 @@ module.exports = ({ app }) => {
       });
     }
 
+    const intersectionForFilteredDataFromCSV = arrayIntersection(filteredDataFromCSV, ['date', 'time']);
+
     return res
-      .json(prepareResponse(null, filteredDataFromCSV));
+      .json(prepareResponse(null, intersectionForFilteredDataFromCSV));
   });
 }
-
-function getCache(functionName, _args) {
-  const args = Array.from(_args);
-  const cacheField = `${functionName}-${args.map((arg) => `${arg}`).join('|')}`;
-  if (cache[cacheField]) return cache[cacheField];
-}
-
-function setCache(functionName, _args, data) {
-  const args = Array.from(_args);
-  const cacheField = `${functionName}-${args.map((arg) => `${arg}`).join('|')}`;
-  cache[cacheField] = data;
-
-  setTimeout(() => {
-    delete cache[cacheField];
-  }, config.CACHE_TIMEOUT);
-}
-
-function parseRowData(row) {
-  row.open *= 1;
-  row.high *= 1;
-  row.low *= 1;
-  row.close *= 1;
-  row.tick_volume *= 1;
-
-  return row;
-}
-
-function readCSV(filePath) {
-  const argsForCache = arguments;
-  const dataFromCache = getCache('readCSV', argsForCache);
-  if (dataFromCache) return Promise.resolve(dataFromCache);
-
-  const results = [];
-
-  return new Promise((resolve, reject) => {
-    fs.createReadStream(filePath)
-      .pipe(csv(['date', 'time', 'open', 'high', 'low', 'close', 'tick_volume']))
-      .on('data', (row) => results.push(parseRowData(row)))
-      .on('end', () => {
-        setCache('readCSV', argsForCache, results);
-
-        resolve(results);
-      })
-      .on('error', reject);
-  });
-}
-
 
 function getCSVFilePaths(DATA_DIR) {
   const argsForCache = arguments;
@@ -188,7 +147,7 @@ function getFilePathFromFileName(fileName, fileNames) {
 // source: https://gist.github.com/CezaryDanielNowak/5840923429fc4a6b91c6eba83cf12ba4
 function selectByDateRange(arr, from, to, fieldName = 'date') {
   const result = [];
-  for(let i = 0, max = arr.length; i < max; ++i) {
+  for (let i = 0, max = arr.length; i < max; ++i) {
     if (arr[i][fieldName] >= from && arr[i][fieldName] <= to) {
       result.push(arr[i]);
     }
@@ -196,12 +155,54 @@ function selectByDateRange(arr, from, to, fieldName = 'date') {
   return result;
 }
 
-function intersect(a, b) {
-  if (arguments.length !== 2) {
-    throw new Error('intersect requires 2 parameters. Handling more is not implemented yet.');
+function arrayIntersection(arr, primaryKeys) {
+  if (arr.length !== 2) {
+    throw new Error('arrayIntersection requires 2 parameters. Handling more is not implemented yet.');
   }
-  var setA = new Set(a);
-  var setB = new Set(b);
-  var intersection = new Set([...setA].filter(x => setB.has(x)));
-  return Array.from(intersection);
+
+  // order in objects is preserved ! https://stackoverflow.com/a/23202095/2590921
+  const tmpResults = [{}, {}]; // array of objects
+
+  for (let iteration = 1; iteration >= 0; --iteration) {
+    /**
+     * this nested iteration does following:
+     * [
+     *   [
+     *     {id: 1, value: 1},
+     *     {id: 2, value: 2},
+     *   ],
+     *   [
+     *     {id: 3, value: 3},
+     *     {id: 4, value: 4},
+     *   ]
+     * ]
+     *
+     * when `primaryKeys = ['id']`:
+     * [
+     *   {
+     *     id1: {id: 1, value: 1},
+     *     id2: {id: 2, value: 2},
+     *   },
+     *   {
+     *     id3: {id: 3, value: 3},
+     *     id4: {id: 4, value: 4},
+     *   },
+     * ]
+     */
+
+    for (var i = 0, len = arr[iteration].length; i < len; ++i) {
+      tmpResults[iteration][primaryKeys.map((key) => `${key}${arr[iteration][i][key]}`).join('_')] = arr[iteration][i];
+    }
+  }
+
+return Object
+  .keys(tmpResults[0])
+  .reduce((acc, key) => {
+    if (key in tmpResults[1]) {
+      acc[0].push(tmpResults[0][key]);
+      acc[1].push(tmpResults[1][key]);
+    }
+
+    return acc;
+  }, [[], []]);
 }

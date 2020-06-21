@@ -14,13 +14,16 @@ export default class DateBasedLineChart extends BaseComponent {
         value: PropTypes.number.isRequired,
       })
     ),
-    valueAxisLabel: null,
+    valueLabel: null,
     extraAxis: PropTypes.array,
+    legend: PropTypes.bool,
+
   };
 
   static defaultProps = {
     width: '100%',
     height: '500px',
+    legend: true,
     extraAxis: [
       // { id: 'priceA', label: 'GER30Cash' },
       // { id: 'priceB', label: 'POL20Cash' }
@@ -73,36 +76,16 @@ export default class DateBasedLineChart extends BaseComponent {
     }
 
     am4core.ready(() => {
-      // Themes begin
-      // am4core.useTheme(am4themes_animated);
-      // Themes end
-
-
-
-/*
-dateAxis.groupIntervals.setAll([
-  { timeUnit: "month", count: 1 },
-  { timeUnit: "year", count: 1 },
-  { timeUnit: "year", count: 10 }
-]);
-
-// https://www.amcharts.com/docs/v4/concepts/performance/
-
-am4core.options.minPolylineStep = 5;
-processTimeout = 1 // TODO
-sequencedAnimation = false // TODO
-zoomOutOnDataUpdate = false // TODO?
-accessible = false
-
-am4core.options.queue = true; // init charts one-by-one
-am4core.options.onlyShowOnViewport = true;
-
- */
-
+      am4core.options.minPolylineStep = 1;
+      am4core.options.queue = true; // init charts one-by-one
 
       // Create chart instance
       const chart = am4core.create(`${this.className}_${this.componentId}`, am4charts.XYChart);
       this.chart = chart;
+
+      if (this.props.legend) {
+        chart.legend = new am4charts.Legend();
+      }
 
       // Add data
       chart.data = this.props.data;
@@ -122,42 +105,32 @@ am4core.options.onlyShowOnViewport = true;
       this.createValueAxisAndSeries(chart);
 
       this.props.extraAxis.forEach(({ id, label }) => {
-
         createAxisAndSeries(chart, id, label, true);
-// createAxisAndSeries("views", "Views", true, "triangle");
-// createAxisAndSeries("hits", "Hits", true, "rectangle");
-
-       });
+      });
 
       // Add cursor
       chart.cursor = new am4charts.XYCursor();
       chart.cursor.xAxis = dateAxis;
       chart.scrollbarX = new am4core.Scrollbar();
-
-
-
-
-
     });
   }
-
 
   createValueAxisAndSeries(chart) {
     // Create value axis
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = this.props.valueAxisLabel;
-    valueAxis.title.fontWeight = 'bold';
-    valueAxis.cloneTooltip = false;
+
 
     // Create series
     const series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.valueY = 'value';
     series.dataFields.dateX = 'date';
     series.strokeWidth = 3;
-    series.tooltipText = '{valueY.value}';
-    series.fillOpacity = 0.1;
+    series.fillOpacity = 0.2;
     series.tooltip.getFillFromObject = false;
-    series.tooltipText = "{dateX.formatDate('yyyy-MM-dd HH:mm:ss')}";
+    series.tooltipText = "{dateX.formatDate('yyyy-MM-dd HH:mm:ss')}: [bold]{valueY.value}[/]";
+    series.tensionX = 1;
+    series.tensionY = 1;
+    series.name = this.props.valueLabel;
 
     series.tooltip.adapter.add('x', (x, target) => {
       if (series.tooltip.tooltipDataItem.valueY < 0) {
@@ -197,60 +170,21 @@ am4core.options.onlyShowOnViewport = true;
   }
 }
 
-
-
-// Create series
-function createAxisAndSeries(chart, field, name, opposite, bullet) {
-  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+function createAxisAndSeries(chart, field, name, opposite) {
+  const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
   valueAxis.cloneTooltip = false;
   valueAxis.extraMax = 0.25;
   valueAxis.extraMin = 0.25;
 
-  var series = chart.series.push(new am4charts.LineSeries());
+  const series = chart.series.push(new am4charts.LineSeries());
   series.dataFields.valueY = field;
-  series.dataFields.dateX = "date";
+  series.dataFields.dateX = 'date';
   series.strokeWidth = 2;
   series.yAxis = valueAxis;
   series.name = name;
-  series.tooltipText = "{name}: [bold]{valueY}[/]";
-  series.tensionX = 0.8;
-
-  var interfaceColors = new am4core.InterfaceColorSet();
-
-  // switch(bullet) {
-  //   case "triangle":
-  //     var bullet = series.bullets.push(new am4charts.Bullet());
-  //     bullet.width = 12;
-  //     bullet.height = 12;
-  //     bullet.horizontalCenter = "middle";
-  //     bullet.verticalCenter = "middle";
-
-  //     var triangle = bullet.createChild(am4core.Triangle);
-  //     triangle.stroke = interfaceColors.getFor("background");
-  //     triangle.strokeWidth = 2;
-  //     triangle.direction = "top";
-  //     triangle.width = 12;
-  //     triangle.height = 12;
-  //     break;
-  //   case "rectangle":
-  //     var bullet = series.bullets.push(new am4charts.Bullet());
-  //     bullet.width = 10;
-  //     bullet.height = 10;
-  //     bullet.horizontalCenter = "middle";
-  //     bullet.verticalCenter = "middle";
-
-  //     var rectangle = bullet.createChild(am4core.Rectangle);
-  //     rectangle.stroke = interfaceColors.getFor("background");
-  //     rectangle.strokeWidth = 2;
-  //     rectangle.width = 10;
-  //     rectangle.height = 10;
-  //     break;
-  //   default:
-  //     var bullet = series.bullets.push(new am4charts.CircleBullet());
-  //     bullet.circle.stroke = interfaceColors.getFor("background");
-  //     bullet.circle.strokeWidth = 2;
-  //     break;
-  // }
+  series.tooltipText = '{name}: [bold]{valueY}[/]';
+  series.tensionX = 1;
+  series.tensionY = 1;
 
   valueAxis.renderer.line.strokeOpacity = 1;
   valueAxis.renderer.line.strokeWidth = 2;

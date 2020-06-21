@@ -4,7 +4,7 @@ import PageTitle from 'components/PageTitle';
 
 export default class DayByDay extends BasePage {
   className = 'ts-DayByDay';
-  title = 'Page:DayByDay';
+  title = 'DayByDay';
 
   render() {
     return (
