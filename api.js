@@ -23,6 +23,45 @@ function prepareResponse(err, responseData) {
   }
 }
 
+async function getFilteredDataFromSingleSVG(req, res) {
+  // params:
+  // source: one of get_available_sources
+  // dateFrom: following format: `2020.03.20`
+  // dateTo: following format: `2020.03.20`
+  const {
+    source,
+    dateFrom,
+    dateTo,
+  } = req.query;
+  const filePath = getFilePathFromFileName(source, await getCSVFilePaths(config.DATA_DIR));
+  let dataFromCSV;
+
+  if (!filePath) {
+    res
+      .status(400)
+      .json(prepareResponse({ error_code: 'INVALID_FILE_NAME' }));
+
+    return false;
+  }
+
+  try {
+    dataFromCSV = await readCSV(filePath);
+  } catch(e) {
+    console.error(e);
+    res
+      .status(400)
+      .json(prepareResponse({ error_code: 'INVALID_CSV_FILE_CONTENT', status_message: e }));
+    return false;
+  }
+  let filteredDataFromCSV = dataFromCSV;
+
+  if (dateFrom && dateTo) {
+    filteredDataFromCSV = selectByDateRange(dataFromCSV, dateFrom, dateTo, 'date');
+  }
+
+  return filteredDataFromCSV;
+}
+
 module.exports = ({ app }) => {
 
   app.get('/', (req, res) => res.send('Hello World!'));
@@ -40,36 +79,93 @@ module.exports = ({ app }) => {
     // source: one of get_available_sources
     // dateFrom: following format: `2020.03.20`
     // dateTo: following format: `2020.03.20`
-    const {
-      source,
-      dateFrom,
-      dateTo,
-    } = req.query;
-    const filePath = getFilePathFromFileName(source, await getCSVFilePaths(config.DATA_DIR));
-    let dataFromCSV;
+    const filteredDataFromSVG = await getFilteredDataFromSingleSVG(req, res);
 
-    if (!filePath) {
-      return res
-        .status(400)
-        .json(prepareResponse({ error_code: 'INVALID_FILE_NAME' }));
-    }
-
-    try {
-      dataFromCSV = await readCSV(filePath);
-    } catch(e) {
-      console.error(e);
-      return res
-        .status(400)
-        .json(prepareResponse({ error_code: 'INVALID_CSV_FILE_CONTENT', status_message: e }));
-    }
-    let filteredDataFromCSV = dataFromCSV;
-
-    if (dateFrom && dateTo) {
-      filteredDataFromCSV = selectByDateRange(dataFromCSV, dateFrom, dateTo, 'date');
+    if (filteredDataFromSVG === false) { // when false, error was already handled.
+      return;
     }
 
     return res
-      .json(prepareResponse(null, filteredDataFromCSV));
+      .json(prepareResponse(null, filteredDataFromSVG));
+  });
+
+  // /api/get_day_by_day_data?source=POL20Cash_M1.CSV&dateFrom=2020.03.20&dateTo=2020.03.25
+  app.get('/api/get_day_by_day_data', async (req, res) => {
+    // params:
+    // source: one of get_available_sources
+    // dateFrom: following format: `2020.03.20`
+    // dateTo: following format: `2020.03.20`
+    /*
+returns data like this:
+    [
+      [ // Mon
+        [
+          {"date":"2020.06.08","time":"10:02","open":1841,"high":1843,"low":1841,"close":1843,"tick_volume":3},
+          ...
+        ],
+        [
+          {"date":"2020.06.15","time":"10:02","open":1841,"high":1843,"low":1841,"close":1843,"tick_volume":3},
+          ...
+        ]
+      ],
+
+      [ // Tue
+        [
+          {"date":"2020.06.09","time":"10:02","open":1841,"high":1843,"low":1841,"close":1843,"tick_volume":3},
+          ...
+        ],
+        [
+          {"date":"2020.06.16","time":"10:02","open":1841,"high":1843,"low":1841,"close":1843,"tick_volume":3},
+          ...
+        ]
+      ]
+    ]
+
+    days can be distingushed by array's id:
+    0: Mon
+    1: Tue
+    etc.
+
+     */
+    const filteredDataFromSVG = await getFilteredDataFromSingleSVG(req, res);
+
+    if (filteredDataFromSVG === false) { // when false, error was already handled.
+      return;
+    }
+
+    const { stringToDate, getWeek } = require('./frontend/src/sf/helpers/date');
+    const result = [ // fill array with 53 weeks
+      {}, // 0 - Sun
+      {}, // 1 - Mon
+      {},
+      {},
+      {},
+      {},
+      {},
+    ];
+
+    filteredDataFromSVG.forEach((row) => {
+      const date = stringToDate(row.date, row.time);
+
+      if (!result[date.getDay()][`${date.getYear()}-${getWeek(date)}`]) {
+        result[date.getDay()][`${date.getYear()}-${getWeek(date)}`] = [];
+      }
+
+      result[date.getDay()][`${date.getYear()}-${getWeek(date)}`].push(row);
+    });
+
+
+    result.forEach((dayElement, i) => {
+      const keys = Object.keys(dayElement);
+      const objToArr = keys.map((key) => {
+        return dayElement[key];
+      });
+
+      result[i] = objToArr;
+    });
+
+    return res
+      .json(prepareResponse(null, result));
   });
 
 

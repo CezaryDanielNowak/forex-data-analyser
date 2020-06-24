@@ -17,7 +17,7 @@ export default class DateBasedLineChart extends BaseComponent {
     valueLabel: null,
     extraAxis: PropTypes.array,
     legend: PropTypes.bool,
-
+    scrollbarX: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -27,13 +27,14 @@ export default class DateBasedLineChart extends BaseComponent {
     extraAxis: [
       // { id: 'priceA', label: 'GER30Cash' },
       // { id: 'priceB', label: 'POL20Cash' }
-    ]
+    ],
+    scrollbarX: true,
   };
 
   componentWillUnmount() {
     if (this.chart) {
       this.chart.dispose();
-    };
+    }
 
     super.componentWillUnmount();
   }
@@ -83,10 +84,6 @@ export default class DateBasedLineChart extends BaseComponent {
       const chart = am4core.create(`${this.className}_${this.componentId}`, am4charts.XYChart);
       this.chart = chart;
 
-      if (this.props.legend) {
-        chart.legend = new am4charts.Legend();
-      }
-
       // Add data
       chart.data = this.props.data;
 
@@ -111,7 +108,13 @@ export default class DateBasedLineChart extends BaseComponent {
       // Add cursor
       chart.cursor = new am4charts.XYCursor();
       chart.cursor.xAxis = dateAxis;
-      chart.scrollbarX = new am4core.Scrollbar();
+
+      if (this.props.legend) {
+        chart.legend = new am4charts.Legend();
+      }
+      if (this.props.scrollbarX) {
+        chart.scrollbarX = new am4core.Scrollbar();
+      }
     });
   }
 
